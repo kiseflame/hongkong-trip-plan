@@ -281,6 +281,31 @@
       gap: 10px;
     }
 
+    .food-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .food-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 10px 12px;
+    }
+
+    .food-item h4 {
+      margin: 0 0 4px;
+      font-size: 0.92rem;
+    }
+
+    .food-item p {
+      margin: 0;
+      color: #475569;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
     .spot-card {
       display: grid;
       grid-template-columns: 112px 1fr;
@@ -403,7 +428,7 @@
           <li><div class="time">09:30-12:00</div><p class="task"><strong>方案B（更松弛）</strong>：打车/地铁去西九文化区，看海滨与 M+ 外围，再回尖沙咀。</p></li>
           <li><div class="time">12:00-13:00</div><p class="task">回尖沙咀午餐。若前一天没买齐相机配件，可顺路补充电池/存储卡/包。</p></li>
           <li><div class="time">13:00-13:40</div><p class="task">回酒店取行李，检查证件、相机、借记卡回执是否齐全。</p></li>
-          <li><div class="time">返程前 90 分钟</div><p class="task">建议至少提前 90 分钟到香港西九龙站，避免周六人流带来排队。</p></li>
+          <li><div class="time">16:00前后</div><p class="task">建议最晚 16:00 抵达香港西九龙站；你们的返程车次是 <strong>17:30 从西九龙出发</strong>，周六最好预留足够排队和安检时间。</p></li>
         </ul>
         <span class="tag">节奏：从容收尾</span><span class="tag">不建议再跨海远跑</span>
       </section>
@@ -439,6 +464,10 @@
             <section class="card" style="padding: 12px;">
               <h2 style="margin-bottom: 6px;">景点简介</h2>
               <div id="spot-list" class="spot-list"></div>
+            </section>
+            <section class="card" style="padding: 12px;">
+              <h2 style="margin-bottom: 6px;">沿路吃什么</h2>
+              <div id="food-list" class="food-list"></div>
             </section>
           </div>
         </div>
@@ -512,6 +541,20 @@
         hero: 'linear-gradient(135deg, #0f766e, #0ea5a4)',
         decision: '如果你们线上办卡和买相机都顺利完成，这条是最值得优先选的晚间路线。步行多、拍照好看、回酒店也最方便。',
         stats: ['步行友好', '夜景最强', '适合情侣'],
+        food: [
+          {
+            name: 'K11 / 河内道一带茶餐厅',
+            detail: '适合寄存完行李后的午餐，出餐快，不会打断后面的相机购买安排。'
+          },
+          {
+            name: '北京道或海旁景观餐厅',
+            detail: '适合把晚餐和夜景绑在一起，吃完直接去星光大道拍照，动线最顺。'
+          },
+          {
+            name: '天星码头附近小食',
+            detail: '如果想把时间让给拍照，可以在这里做轻食补给，再决定要不要坐船去中环。'
+          }
+        ],
         path: [
           [22.2984, 114.1748],
           [22.2977, 114.1748],
@@ -561,6 +604,20 @@
         hero: 'linear-gradient(135deg, #b45309, #f59e0b)',
         decision: '如果你们周五买完相机后只想轻松收尾，或者周六上午只想慢慢看海，这条最合适。移动少，节奏稳定。',
         stats: ['最省力', '返程友好', '海边散步'],
+        food: [
+          {
+            name: '尖沙咀凯悦周边早餐',
+            detail: '这条线最适合从早餐开始慢慢走，吃完直接出发，不需要赶时间。'
+          },
+          {
+            name: '西九文化区咖啡 / 轻食',
+            detail: '适合边看海边休息，整体节奏像度假，不会太重口也不拖延返程。'
+          },
+          {
+            name: '回尖沙咀后的午餐',
+            detail: '建议中午回到酒店附近吃正餐，再去西九龙站，衔接 17:30 的返程最稳。'
+          }
+        ],
         path: [
           [22.2984, 114.1748],
           [22.3047, 114.1667],
@@ -601,6 +658,20 @@
         hero: 'linear-gradient(135deg, #be123c, #fb7185)',
         decision: '如果你们想把“海港城、1881、广东道、晚餐”一口气走完，这条最顺，但购物停留时间容易拉长。',
         stats: ['购物优先', '晚餐选择多', '容易逛久'],
+        food: [
+          {
+            name: '海港城商场内餐厅',
+            detail: '适合买相机前后顺手解决一顿，选择多，但高峰时段要留意排队。'
+          },
+          {
+            name: '广东道 / 北京道附近粤菜或茶餐厅',
+            detail: '这条线最适合把晚餐放在购物段中间，吃完继续去 1881 或星光大道。'
+          },
+          {
+            name: '夜景后甜品 / 小食',
+            detail: '如果拍完夜景还不想回酒店，可以在尖沙咀海旁附近找甜品店做收尾。'
+          }
+        ],
         path: [
           [22.2984, 114.1748],
           [22.2958, 114.1684],
@@ -647,6 +718,7 @@
 
     const routeGrid = document.getElementById('route-grid');
     const spotList = document.getElementById('spot-list');
+    const foodList = document.getElementById('food-list');
     const routeSummary = document.getElementById('route-summary');
     const routeLayers = {};
     const routeMarkers = {};
@@ -717,6 +789,12 @@
             <h4>${spot.name}</h4>
             <p>${spot.description}</p>
           </div>
+        </article>
+      `).join('');
+      foodList.innerHTML = route.food.map((item) => `
+        <article class="food-item">
+          <h4>${item.name}</h4>
+          <p>${item.detail}</p>
         </article>
       `).join('');
     };
