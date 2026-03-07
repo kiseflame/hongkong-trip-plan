@@ -3,27 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>广深港情侣旅行规划网页</title>
-  <meta name="description" content="2026-03-19 到 2026-03-21 的广深港情侣旅行单页行动网页，覆盖酒店、固定车次、线上办卡、GR III 代购、D2/D3 路线决策与返程倒推。">
+  <title>小妖妖的香港行动规划</title>
+  <meta name="description" content="2026-03-19 到 2026-03-21 的广深港情侣旅行单页行动规划，覆盖深圳夜间、尖沙咀任务日、D3 二选一路线与返程倒推。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  >
   <style>
     :root {
-      --bg: #f5efe4;
-      --paper: rgba(255, 250, 242, 0.9);
-      --paper-strong: #fffaf2;
-      --ink: #1f2430;
-      --subtle: #5f6472;
-      --line: rgba(31, 36, 48, 0.12);
+      --bg: #f3ecdf;
+      --paper: rgba(255, 250, 242, 0.92);
+      --paper-strong: #fffaf3;
+      --ink: #1d2330;
+      --subtle: #667085;
+      --line: rgba(29, 35, 48, 0.12);
       --brand: #b24a2e;
-      --brand-deep: #772f22;
-      --sea: #24606c;
-      --night: #162033;
-      --gold: #d09b44;
-      --green: #3d6d58;
-      --shadow: 0 24px 60px rgba(35, 29, 20, 0.12);
-      --radius-xl: 28px;
+      --brand-soft: rgba(178, 74, 46, 0.12);
+      --brand-deep: #7c3123;
+      --sea: #205968;
+      --gold: #d0a04b;
+      --shadow: 0 24px 70px rgba(43, 34, 20, 0.11);
+      --radius-xl: 30px;
       --radius-lg: 22px;
       --radius-md: 16px;
       --max: 1240px;
@@ -42,9 +47,9 @@
       font-family: "Noto Sans SC", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(208, 155, 68, 0.22), transparent 26%),
-        radial-gradient(circle at top right, rgba(36, 96, 108, 0.18), transparent 28%),
-        linear-gradient(180deg, #f8f1e8 0%, #f1e6d7 48%, #efe7db 100%);
+        radial-gradient(circle at 0% 0%, rgba(208, 160, 75, 0.24), transparent 22%),
+        radial-gradient(circle at 100% 0%, rgba(32, 89, 104, 0.18), transparent 26%),
+        linear-gradient(180deg, #f7f1e7 0%, #f2e8d9 46%, #efe6d9 100%);
     }
 
     a {
@@ -54,81 +59,84 @@
 
     img {
       display: block;
-      max-width: 100%;
+      width: 100%;
+    }
+
+    button {
+      font: inherit;
     }
 
     .page-shell {
       width: min(calc(100% - 32px), var(--max));
       margin: 0 auto;
-      padding: 28px 0 56px;
+      padding: 26px 0 48px;
+    }
+
+    .hero,
+    .section-card,
+    .timeline-card,
+    .check-card,
+    .route-showcase,
+    .spot-card {
+      background: var(--paper);
+      border: 1px solid rgba(255, 255, 255, 0.66);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
     }
 
     .hero {
       position: relative;
       overflow: hidden;
-      border-radius: 36px;
-      padding: 32px;
+      border-radius: 38px;
+      padding: 34px;
       background:
-        linear-gradient(135deg, rgba(255, 246, 234, 0.9), rgba(247, 236, 222, 0.92)),
-        linear-gradient(180deg, #ffffff, #f3e8d9);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-    }
-
-    .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      pointer-events: none;
-    }
-
-    .hero::before {
-      width: 420px;
-      height: 420px;
-      top: -220px;
-      right: -140px;
-      background: radial-gradient(circle, rgba(36, 96, 108, 0.22), transparent 70%);
-    }
-
-    .hero::after {
-      width: 360px;
-      height: 360px;
-      left: -100px;
-      bottom: -210px;
-      background: radial-gradient(circle, rgba(178, 74, 46, 0.18), transparent 70%);
+        radial-gradient(circle at 88% 16%, rgba(32, 89, 104, 0.18), transparent 22%),
+        radial-gradient(circle at 12% 100%, rgba(178, 74, 46, 0.16), transparent 22%),
+        linear-gradient(135deg, rgba(255, 247, 236, 0.95), rgba(247, 237, 223, 0.94));
     }
 
     .hero-grid {
-      position: relative;
       display: grid;
       grid-template-columns: 1.35fr 0.95fr;
-      gap: 24px;
+      gap: 22px;
+      position: relative;
       z-index: 1;
     }
 
-    .eyebrow {
+    .eyebrow,
+    .chip,
+    .meta-pill,
+    .route-meta span,
+    .spot-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.76);
-      color: var(--brand-deep);
       font-size: 13px;
-      font-weight: 700;
+      line-height: 1.15;
+      border: 1px solid rgba(29, 35, 48, 0.08);
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .eyebrow {
+      color: var(--brand-deep);
+      font-weight: 800;
       letter-spacing: 0.04em;
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3,
+    h4 {
       margin: 0;
     }
 
     h1 {
       margin-top: 16px;
       font-family: "Noto Serif SC", serif;
-      font-size: clamp(34px, 5vw, 58px);
-      line-height: 1.08;
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.05;
       letter-spacing: -0.03em;
     }
 
@@ -137,61 +145,46 @@
       max-width: 720px;
       color: var(--subtle);
       font-size: 16px;
-      line-height: 1.8;
+      line-height: 1.85;
     }
 
-    .hero-badges,
+    .hero-pills,
+    .hero-decision,
     .hero-stats,
-    .decision-strip,
     .chips,
     .route-meta,
-    .source-tags,
-    .note-tags {
+    .spot-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
 
-    .hero-badges {
+    .hero-pills {
       margin-top: 22px;
     }
 
-    .hero-badges span,
-    .chips span,
-    .route-meta span,
-    .source-tags span,
-    .note-tags span {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(31, 36, 48, 0.08);
-      color: var(--ink);
-      font-size: 13px;
-      line-height: 1.2;
+    .hero-decision {
+      margin-top: 18px;
+    }
+
+    .hero-decision .chip {
+      background: var(--brand-soft);
+      border-color: rgba(178, 74, 46, 0.14);
+      color: var(--brand-deep);
+      font-weight: 700;
     }
 
     .hero-side {
       display: grid;
       gap: 16px;
-    }
-
-    .glass-card,
-    .section-card,
-    .timeline-card,
-    .decision-card,
-    .check-card,
-    .source-card,
-    .food-card,
-    .visual-card {
-      background: var(--paper);
-      border: 1px solid rgba(255, 255, 255, 0.68);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
+      align-content: start;
     }
 
     .glass-card {
       border-radius: 24px;
-      padding: 18px 18px 20px;
+      padding: 18px;
+      background: rgba(255, 250, 244, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.7);
     }
 
     .glass-card h3 {
@@ -200,43 +193,40 @@
     }
 
     .hero-stats .stat {
-      flex: 1 1 140px;
-      min-width: 140px;
+      flex: 1 1 150px;
+      min-width: 150px;
       padding: 14px;
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.84);
-      border: 1px solid rgba(31, 36, 48, 0.08);
+      border: 1px solid rgba(29, 35, 48, 0.08);
     }
 
     .stat strong,
     .quick strong,
     .time strong,
-    .route-stop strong,
-    .source-card strong {
+    .check-card h3,
+    .route-copy h3 {
       display: block;
       font-weight: 800;
       margin-bottom: 4px;
     }
 
     .stat strong {
-      font-size: 26px;
+      font-size: 27px;
       color: var(--brand-deep);
     }
 
     .stat small,
-    .time span,
     .quick p,
-    .source-card p,
     .timeline-item p,
-    .decision-card p,
+    .timeline-item li,
+    .route-copy p,
+    .check-card p,
+    .check-card li,
     .section-head p,
-    .food-card p,
-    .route-stop p,
-    .visual-copy p,
-    .route-note,
-    .source-footnote {
+    .spot-copy p {
       color: var(--subtle);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     main {
@@ -252,55 +242,38 @@
 
     .section-head {
       display: flex;
-      align-items: end;
       justify-content: space-between;
-      gap: 16px;
+      align-items: end;
+      gap: 18px;
       margin-bottom: 20px;
     }
 
     .section-head h2 {
-      font-size: clamp(24px, 3vw, 34px);
+      font-size: clamp(24px, 3vw, 36px);
       font-family: "Noto Serif SC", serif;
     }
 
     .overview-grid,
     .timeline-grid,
-    .decision-grid,
     .check-grid,
-    .source-grid,
-    .visual-grid {
+    .spot-grid {
       display: grid;
       gap: 18px;
     }
 
     .overview-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .quick {
       padding: 18px;
       border-radius: 22px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 246, 239, 0.95));
-      border: 1px solid rgba(31, 36, 48, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 247, 240, 0.96));
+      border: 1px solid rgba(29, 35, 48, 0.08);
     }
 
     .quick strong {
       font-size: 15px;
-      margin-bottom: 8px;
-    }
-
-    .decision-strip {
-      margin-top: 18px;
-    }
-
-    .decision-strip span {
-      padding: 10px 14px;
-      border-radius: 16px;
-      background: rgba(178, 74, 46, 0.08);
-      border: 1px solid rgba(178, 74, 46, 0.14);
-      font-weight: 700;
-      font-size: 14px;
     }
 
     .timeline-grid {
@@ -308,7 +281,7 @@
     }
 
     .timeline-card {
-      border-radius: 26px;
+      border-radius: 28px;
       padding: 22px;
     }
 
@@ -320,15 +293,10 @@
       margin-bottom: 16px;
     }
 
-    .timeline-top .title-wrap {
+    .title-wrap {
       display: flex;
       flex-direction: column;
       gap: 6px;
-    }
-
-    .timeline-top h3 {
-      font-size: 24px;
-      font-family: "Noto Serif SC", serif;
     }
 
     .day-flag {
@@ -338,10 +306,15 @@
       align-self: flex-start;
       padding: 7px 12px;
       border-radius: 999px;
-      background: rgba(22, 32, 51, 0.08);
-      color: var(--night);
+      background: rgba(29, 35, 48, 0.08);
+      color: var(--ink);
       font-size: 13px;
       font-weight: 700;
+    }
+
+    .timeline-top h3 {
+      font-size: 25px;
+      font-family: "Noto Serif SC", serif;
     }
 
     .timeline {
@@ -358,15 +331,15 @@
       top: 6px;
       bottom: 6px;
       width: 2px;
-      background: linear-gradient(180deg, var(--brand), rgba(36, 96, 108, 0.26));
+      background: linear-gradient(180deg, var(--brand), rgba(32, 89, 104, 0.24));
     }
 
     .timeline-item {
       position: relative;
       display: grid;
-      grid-template-columns: 116px 1fr;
+      grid-template-columns: 118px 1fr;
       gap: 16px;
-      padding: 0 0 0 18px;
+      padding-left: 18px;
     }
 
     .timeline-item::before {
@@ -382,223 +355,204 @@
       box-shadow: 0 0 0 6px rgba(178, 74, 46, 0.08);
     }
 
-    .time {
-      padding-top: 2px;
-    }
-
     .time strong {
       font-size: 17px;
     }
 
+    .time span {
+      display: block;
+      color: var(--subtle);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
     .timeline-item h4 {
-      margin: 0 0 6px;
       font-size: 17px;
+      margin-bottom: 6px;
     }
 
     .timeline-item ul,
-    .check-card ul,
-    .source-card ul {
+    .check-card ul {
       margin: 8px 0 0 18px;
       padding: 0;
-      color: var(--subtle);
-      line-height: 1.75;
     }
 
-    .decision-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      align-items: start;
-    }
-
-    .decision-card {
-      border-radius: 26px;
-      overflow: hidden;
-    }
-
-    .visual-card {
-      position: relative;
-      min-height: 220px;
-      padding: 0;
-      overflow: hidden;
-      border-radius: 0;
-      box-shadow: none;
-      border: 0;
-      background:
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.32), transparent 24%),
-        linear-gradient(135deg, rgba(18, 31, 48, 0.94), rgba(35, 72, 88, 0.94));
-    }
-
-    .visual-card.task {
-      background:
-        radial-gradient(circle at 78% 18%, rgba(255, 215, 160, 0.26), transparent 26%),
-        linear-gradient(135deg, #402015, #16444d);
-    }
-
-    .visual-card.classic {
-      background:
-        radial-gradient(circle at 20% 18%, rgba(255, 214, 122, 0.26), transparent 26%),
-        linear-gradient(135deg, #1f304f, #40697c);
-    }
-
-    .visual-card.street {
-      background:
-        radial-gradient(circle at 18% 18%, rgba(255, 129, 92, 0.26), transparent 26%),
-        linear-gradient(135deg, #391f2d, #6b4329);
-    }
-
-    .visual-card svg {
-      width: 100%;
-      height: 220px;
-    }
-
-    .visual-copy {
-      padding: 20px 20px 22px;
-    }
-
-    .visual-copy h3 {
-      font-size: 23px;
-      margin-bottom: 10px;
-      font-family: "Noto Serif SC", serif;
-    }
-
-    .decision-rank {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 800;
-      background: rgba(178, 74, 46, 0.1);
-      color: var(--brand-deep);
-    }
-
-    .route-line {
-      margin: 16px 0 18px;
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(31, 36, 48, 0.04);
-      border: 1px solid rgba(31, 36, 48, 0.08);
-      display: grid;
-      gap: 12px;
-    }
-
-    .route-stop {
-      position: relative;
-      padding-left: 22px;
-    }
-
-    .route-stop::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--brand);
-      box-shadow: 0 0 0 5px rgba(178, 74, 46, 0.1);
-    }
-
-    .food-card {
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 18px;
-    }
-
-    .food-card h4,
-    .check-card h3,
-    .source-card h3 {
-      margin: 0 0 10px;
-      font-size: 17px;
-    }
-
-    .route-note {
-      margin-top: 14px;
-      font-size: 14px;
-    }
-
-    .choice-bar {
+    .route-switch {
       display: inline-flex;
       gap: 8px;
       padding: 6px;
       border-radius: 999px;
-      background: rgba(31, 36, 48, 0.06);
-      margin-bottom: 18px;
+      background: rgba(29, 35, 48, 0.06);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
 
-    .choice-bar span {
-      padding: 8px 12px;
+    .route-switch button {
+      border: 0;
       border-radius: 999px;
-      font-size: 13px;
+      padding: 10px 14px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--subtle);
       font-weight: 700;
     }
 
-    .choice-bar .active {
+    .route-switch button.active {
       background: var(--paper-strong);
       color: var(--brand-deep);
+      box-shadow: inset 0 0 0 1px rgba(178, 74, 46, 0.12);
     }
 
-    .return-lock {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(178, 74, 46, 0.08);
-      border: 1px solid rgba(178, 74, 46, 0.14);
-      color: var(--brand-deep);
-      font-weight: 700;
-      line-height: 1.7;
+    .route-panel[hidden] {
+      display: none;
+    }
+
+    .route-summary {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(29, 35, 48, 0.08);
+    }
+
+    .route-summary h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .route-summary p {
+      margin: 0;
+      color: var(--subtle);
+      line-height: 1.75;
     }
 
     .check-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .check-card,
-    .source-card {
+    .check-card {
       border-radius: 24px;
       padding: 22px;
     }
 
-    .source-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .check-card h3 {
+      font-size: 18px;
     }
 
-    .source-card a {
-      color: var(--sea);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
+    .route-stack {
+      display: grid;
+      gap: 18px;
     }
 
-    .source-footnote {
-      margin-top: 14px;
-      font-size: 13px;
+    .route-showcase {
+      border-radius: 28px;
+      padding: 20px;
+      overflow: hidden;
     }
 
-    .footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 8px;
-      padding: 0 6px;
+    .route-copy {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .route-copy h3 {
+      font-size: 24px;
+      font-family: "Noto Serif SC", serif;
+    }
+
+    .map-frame {
+      height: 370px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(29, 35, 48, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+      background: #e9dfd0;
+    }
+
+    .map-canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .route-points {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .route-point {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(29, 35, 48, 0.04);
+      border: 1px solid rgba(29, 35, 48, 0.08);
+    }
+
+    .route-point strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .route-point p {
+      margin: 0;
       color: var(--subtle);
-      font-size: 13px;
+      line-height: 1.7;
     }
 
-    .footer a {
-      color: var(--sea);
-      text-decoration: underline;
-      text-underline-offset: 3px;
+    .spot-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .spot-card {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .spot-image {
+      aspect-ratio: 1.3 / 1;
+      overflow: hidden;
+      background: #dfd3c1;
+    }
+
+    .spot-image img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .spot-copy {
+      padding: 16px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .spot-copy h4 {
+      font-size: 17px;
+    }
+
+    .spot-copy p {
+      margin: 0;
+    }
+
+    .spot-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .spot-tag {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .leaflet-control-attribution {
+      font-size: 11px;
     }
 
     @media (max-width: 1120px) {
       .hero-grid,
       .overview-grid,
-      .decision-grid,
-      .source-grid,
-      .check-grid {
+      .check-grid,
+      .spot-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -612,8 +566,8 @@
       .hero,
       .section-card,
       .timeline-card,
-      .check-card,
-      .source-card {
+      .route-showcase,
+      .check-card {
         padding: 18px;
         border-radius: 24px;
       }
@@ -623,106 +577,18 @@
         gap: 8px;
       }
 
-      .timeline-item .time {
-        padding-top: 0;
-      }
-
       .timeline {
         padding-left: 14px;
       }
 
-      .section-head {
+      .section-head,
+      .timeline-top {
+        flex-direction: column;
         align-items: start;
-        flex-direction: column;
       }
 
-      .footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @page {
-      size: A4;
-      margin: 12mm;
-    }
-
-    @media print {
-      body {
-        background: #fff;
-      }
-
-      .page-shell {
-        width: 100%;
-        padding: 0;
-      }
-
-      .hero,
-      .section-card,
-      .timeline-card,
-      .check-card,
-      .source-card,
-      .glass-card,
-      .food-card {
-        box-shadow: none;
-        backdrop-filter: none;
-      }
-
-      .hero,
-      .section-card {
-        border: 1px solid rgba(31, 36, 48, 0.1);
-      }
-
-      .timeline-card,
-      .check-card,
-      .source-card,
-      .glass-card,
-      .food-card {
-        break-inside: avoid;
-      }
-
-      .decision-grid,
-      .overview-grid,
-      .check-grid,
-      .source-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .decision-grid {
-        display: block;
-      }
-
-      .decision-card {
-        display: block;
-        margin-bottom: 16px;
-      }
-
-      .decision-card,
-      .section-card {
-        overflow: visible;
-      }
-
-      .decision-card,
-      .visual-copy,
-      .route-line {
-        break-inside: auto;
-      }
-
-      .visual-card,
-      .food-card {
-        break-inside: avoid;
-      }
-
-      .visual-card {
-        min-height: 0;
-      }
-
-      .visual-card svg {
-        height: 180px;
-      }
-
-      a {
-        text-decoration: none;
+      .map-frame {
+        height: 300px;
       }
     }
   </style>
@@ -732,29 +598,28 @@
     <header class="hero">
       <div class="hero-grid">
         <section>
-          <span class="eyebrow">2026 广深港情侣旅行行动页</span>
-          <h1>先把任务拿下，<br>再把香港玩得不重复。</h1>
+          <span class="eyebrow">2026 广深港情侣旅行</span>
+          <h1>小妖妖的香港行动规划</h1>
           <p class="lead">
-            这不是普通时间表，而是一张可执行的三天决策页：D1 在深圳收口，D2 在尖沙咀完成线上办卡与
-            RICOH GR III 代购，晚上只留一条海旁奖励线；D3 上午只做一条主观光线，严格倒推
-            2026-03-21 17:30 香港西九龙返程。
+            三天动线只做一件事：把 D2 的办卡和代购优先完成，再把 D3 上午的主观光线走完整。
+            D1 只留给深圳夜间，D2 锁定尖沙咀任务日，D3 只在“中环 + 山顶经典首访线”和“旺角 + 星际城市 + 油麻地警署港味线”之间二选一。
           </p>
-          <div class="hero-badges">
-            <span>旅行日期 2026-03-19 至 2026-03-21</span>
-            <span>2 人情侣出行</span>
-            <span>GitHub Pages + PDF 友好</span>
-            <span>D2 / D3 主景点组完全拆开</span>
+          <div class="hero-pills">
+            <span class="chip">旅行日期 2026-03-19 至 2026-03-21</span>
+            <span class="chip">2 人情侣出行</span>
+            <span class="chip">深圳酒店：深圳北站步行约 6 分钟</span>
+            <span class="chip">香港酒店：尖沙咀凯悦</span>
           </div>
-          <div class="decision-strip">
-            <span>决策顺序 01 入住</span>
-            <span>02 BOCHK 线上办卡</span>
-            <span>03 GR III 代购</span>
-            <span>04 再安排观光</span>
+          <div class="hero-decision">
+            <span class="chip">01 入住</span>
+            <span class="chip">02 BOCHK 线上办卡</span>
+            <span class="chip">03 GR III 代购</span>
+            <span class="chip">04 再安排观光</span>
           </div>
         </section>
         <aside class="hero-side">
           <div class="glass-card">
-            <h3>固定事实</h3>
+            <h3>重要时刻</h3>
             <div class="hero-stats">
               <div class="stat">
                 <strong>D1</strong>
@@ -766,18 +631,17 @@
               </div>
               <div class="stat">
                 <strong>D3</strong>
-                <small>17:30 西九龙返广<br>最晚 16:00 到站</small>
+                <small>17:30 香港西九龙返广<br>建议 16:00 前后到站</small>
               </div>
             </div>
           </div>
           <div class="glass-card">
-            <h3>酒店与返程约束</h3>
+            <h3>行动边界</h3>
             <div class="chips">
-              <span>深圳酒店：深圳北站步行约 6 分钟</span>
-              <span>香港酒店：尖沙咀凯悦</span>
-              <span>D3 必须先回酒店拿行李</span>
-              <span>建议 15:20 - 15:40 出发去西九龙</span>
-              <span>D2 不外跳旺角 / 油麻地 / 中环</span>
+              <span class="chip">D2 不外跳旺角 / 油麻地 / 中环</span>
+              <span class="chip">D3 必须先回酒店拿行李</span>
+              <span class="chip">建议 15:20 - 15:40 从酒店去西九龙</span>
+              <span class="chip">D2 / D3 主景点组不重复</span>
             </div>
           </div>
         </aside>
@@ -789,31 +653,26 @@
         <div class="section-head">
           <div>
             <h2>行程总览</h2>
-            <p>先把三天的硬约束、酒店与路线分工看清，再做每天的临场判断。</p>
+            <p>先看三天分工，再看每天的时间轴。</p>
           </div>
-          <div class="note-tags">
-            <span>少折返</span>
-            <span>任务优先</span>
-            <span>情侣氛围</span>
-            <span>返程可控</span>
+          <div class="chips">
+            <span class="chip">少折返</span>
+            <span class="chip">先任务后观光</span>
+            <span class="chip">中午后进入返程模式</span>
           </div>
         </div>
         <div class="overview-grid">
           <article class="quick">
-            <strong>D1 深圳收口</strong>
-            <p>只做入住、晚餐、第二天资料整理，不安排跨区夜游。目标是把精神状态留给 D2 任务日。</p>
+            <strong>D1 深圳夜间</strong>
+            <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
           </article>
           <article class="quick">
             <strong>D2 尖沙咀任务日</strong>
-            <p>先寄存行李，再在酒店 WiFi 下处理 BOCHK 线上办理；下午集中完成 GR III 搜货与成交，晚上只走海旁收尾线。</p>
+            <p>先去酒店寄存行李，再在酒店 WiFi 下处理中银香港线上办卡；下午集中搜索并成交 GR III，晚上只走海旁奖励线。</p>
           </article>
           <article class="quick">
             <strong>D3 纯观光日</strong>
-            <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；若更想拍港味街头，再切换旺角 + 油麻地线。</p>
-          </article>
-          <article class="quick">
-            <strong>返程硬锁</strong>
-            <p>12:00 - 13:10 左右回尖沙咀午餐，13:10 - 14:00 回酒店拿行李，15:20 - 15:40 出发，16:00 前后到站。</p>
+            <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；如果更想拍港风街头，再切旺角 + 油麻地线。12:00 后开始回收动线。</p>
           </article>
         </div>
       </section>
@@ -823,12 +682,12 @@
           <div class="timeline-top">
             <div class="title-wrap">
               <span class="day-flag">D1 · 2026-03-19 周四</span>
-              <h3>深圳轻量收口夜</h3>
+              <h3>深圳夜间</h3>
             </div>
             <div class="chips">
-              <span>不跨区</span>
-              <span>不熬夜</span>
-              <span>为 D2 留体力</span>
+              <span class="chip">不跨区</span>
+              <span class="chip">快吃快住</span>
+              <span class="chip">给 D2 留体力</span>
             </div>
           </div>
           <div class="timeline">
@@ -839,7 +698,7 @@
               </div>
               <div>
                 <h4>固定车次进深圳</h4>
-                <p>这段不再加任何景点判断，按到站后尽快进入“入住 - 吃饭 - 收资料”的节奏。</p>
+                <p>这段只做交通，不插入任何顺路打卡。晚到深圳的正确节奏是尽快进酒店，把第二天的效率换出来。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -848,8 +707,8 @@
                 <span>出站 + 步行到酒店</span>
               </div>
               <div>
-                <h4>先入住，压掉当天不确定性</h4>
-                <p>酒店就在深圳北站附近，步行约 6 分钟，适合晚到后快速安顿，不值得再跨区折腾。</p>
+                <h4>先安顿下来</h4>
+                <p>酒店就在深圳北站附近，步行约 6 分钟。这一晚不再跨区，直接把通勤压到最短。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -858,8 +717,8 @@
                 <span>站边晚餐</span>
               </div>
               <div>
-                <h4>选快吃型晚餐</h4>
-                <p>目标不是“打卡”，而是补能量。优先热食、上菜稳定、离酒店近的店，避免需要排队的商场餐饮。</p>
+                <h4>晚餐只求稳和热</h4>
+                <p>优先热食、离酒店近、出餐快的店，不把晚餐吃成排队项目。重点是补充体力，不是追求夜间行程。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -868,11 +727,11 @@
                 <span>回房整理</span>
               </div>
               <div>
-                <h4>把 D2 材料提前清好</h4>
+                <h4>把 D2 的资料准备好</h4>
                 <ul>
-                  <li>检查港澳通行证、过关票据、酒店订单、手机流量和支付方式。</li>
-                  <li>提前下载 BOCHK App，并把身份资料、地址、手机号、邮箱、TIN 等信息放到同一备注页。</li>
-                  <li>整理 GR III 验机清单，第二天到港后不临时慌乱。</li>
+                  <li>整理港澳通行证、车票、酒店订单、香港支付方式。</li>
+                  <li>提前下载 BOCHK App，把身份信息、地址、手机号、邮箱和 TIN 放到同一页备注。</li>
+                  <li>把 GR III 验机清单单独列好，到港后直接执行。</li>
                 </ul>
               </div>
             </div>
@@ -886,20 +745,20 @@
               <h3>任务日 + 九龙海旁夜景收尾</h3>
             </div>
             <div class="chips">
-              <span>寄存行李优先</span>
-              <span>酒店 WiFi 办卡</span>
-              <span>GR III 下午优先</span>
+              <span class="chip">寄存行李优先</span>
+              <span class="chip">酒店 WiFi 办卡</span>
+              <span class="chip">GR III 下午优先</span>
             </div>
           </div>
           <div class="timeline">
             <div class="timeline-item">
               <div class="time">
-                <strong>09:15 - 10:30</strong>
+                <strong>10:00 - 10:30</strong>
                 <span>深圳北 → 香港西九龙</span>
               </div>
               <div>
-                <h4>10:00 发车，10:30 到港</h4>
-                <p>到港后不先去逛，直接执行“寄存 - 办卡 - 购机”。任务没有完成前，不给自己加游玩支线。</p>
+                <h4>固定车次到港</h4>
+                <p>落地香港后的目标非常明确：寄存行李、线上办卡、集中买机。任务没完成前，不插入无关观光。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -908,8 +767,8 @@
                 <span>西九龙 → 尖沙咀凯悦</span>
               </div>
               <div>
-                <h4>先去酒店寄存行李</h4>
-                <p>人先轻下来，下午搜货才不会被箱包拖累。尖沙咀凯悦本身就在后续主战场边上，能把动线压得很紧。</p>
+                <h4>先到酒店寄存行李</h4>
+                <p>人先轻下来，下午搜货会更稳。尖沙咀凯悦本身就在后续任务区附近，动线会非常顺。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -919,11 +778,7 @@
               </div>
               <div>
                 <h4>处理中银香港借记卡线上办理</h4>
-                <p>BOCHK 线上开户已经替代线下跑分行。酒店 WiFi 更适合上传资料、做人脸识别和接收短信，失败也方便立刻补资料。</p>
-                <ul>
-                  <li>先核验 eligibility，再进入开户流程，不预设“必然成功”。</li>
-                  <li>若遇到资格不符、影像识别失败、补件或人工审核，立即止损，不让它吞掉下午购机时间。</li>
-                </ul>
+                <p>在酒店 WiFi 下做资料上传、人脸识别和短信校验更稳。若流程卡住，及时停手，把下午保给购机。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -932,8 +787,8 @@
                 <span>尖沙咀快午餐</span>
               </div>
               <div>
-                <h4>午餐要短、稳、离主战场近</h4>
-                <p>优先海港城 / 广东道一带快进快出的商场餐饮，目标是给下午空出完整的搜货窗口，而不是把中午吃成一次单独行程。</p>
+                <h4>午餐要短、近、稳定</h4>
+                <p>优先海港城 / 广东道一带快进快出的商场餐饮，不把中午吃成一段单独路线。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -942,32 +797,32 @@
                 <span>尖沙咀 / 海港城 / 广东道</span>
               </div>
               <div>
-                <h4>GR III 购机主战场</h4>
+                <h4>GR III 主战场搜索</h4>
                 <ul>
-                  <li>第一轮优先打电话或线上问库存，再决定先去哪家门店，避免在广东道来回白跑。</li>
-                  <li>主搜索范围锁定尖沙咀、海港城、广东道；若主战场无果，再把西九龙作为同日备援。</li>
-                  <li>未确认现货前不付款；确认货号、颜色、是否港行、能否现场开箱验机后再成交。</li>
+                  <li>先电话或线上问库存，再移动。</li>
+                  <li>主搜索范围锁定尖沙咀、海港城、广东道；无果再把西九龙作为备援。</li>
+                  <li>确认是港行、现货可验机后再成交。</li>
                 </ul>
               </div>
             </div>
             <div class="timeline-item">
               <div class="time">
                 <strong>16:50 - 17:30</strong>
-                <span>回酒店短休 / 放机身</span>
+                <span>回酒店放机身</span>
               </div>
               <div>
                 <h4>买到就先放回酒店</h4>
-                <p>GR III 优先级高于景点，成交后第一动作是回酒店放好，不带着新机继续高强度逛街。</p>
+                <p>新机成交后优先回酒店放好，再开始晚餐和海旁收尾线。</p>
               </div>
             </div>
             <div class="timeline-item">
               <div class="time">
                 <strong>18:10 - 21:10</strong>
-                <span>奖励式夜景收尾线</span>
+                <span>凯悦 → K11 / 海港城 → 海旁 → 星光大道 → 1881 / 天星码头外围</span>
               </div>
               <div>
-                <h4>凯悦 → K11 / 海港城晚餐段 → 海旁 → 星光大道 → 1881 / 天星码头外围 → 回酒店</h4>
-                <p>这一段只服务于“任务完成后的收口”，不再跳去旺角、油麻地、中环，也不做第二条夜游备选线。它是奖励，不是 D3 观光主线。</p>
+                <h4>只留一条奖励式收尾线</h4>
+                <p>这一晚只在尖沙咀海旁区域收口，不再跳旺角、油麻地、中环，也不再做第二条夜游方案。</p>
               </div>
             </div>
           </div>
@@ -977,17 +832,29 @@
           <div class="timeline-top">
             <div class="title-wrap">
               <span class="day-flag">D3 · 2026-03-21 周六</span>
-              <h3>纯观光日，只能二选一</h3>
+              <h3>纯观光日，只选一条主线</h3>
             </div>
             <div class="chips">
-              <span>上午出发</span>
-              <span>中午回尖沙咀</span>
-              <span>下午只做返程</span>
+              <span class="chip">上午出发</span>
+              <span class="chip">12:00 后回尖沙咀</span>
+              <span class="chip">下午只做返程</span>
             </div>
           </div>
-          <div class="choice-bar">
-            <span class="active">默认推荐：中环 + 山顶经典首访线</span>
-            <span>备选：旺角 + 星际城市 + 油麻地警署港味线</span>
+          <div class="route-switch" data-route-group="d3">
+            <button type="button" class="active" data-route="classic">默认推荐：中环 + 山顶经典首访线</button>
+            <button type="button" data-route="street">备选：旺角 + 星际城市 + 油麻地警署港味线</button>
+          </div>
+          <div class="route-panel" data-route-panel="classic">
+            <div class="route-summary">
+              <h4>第一次来香港，优先把上午留给山顶和港岛天际线</h4>
+              <p>凯悦出发后直接过海去中环，走 Peak Tram Lower Terminus、山顶 / 凌霄阁，再回尖沙咀午餐、取行李、去西九龙。它和 D2 的海旁夜景是两种完全不同的观景体验。</p>
+            </div>
+          </div>
+          <div class="route-panel" data-route-panel="street" hidden>
+            <div class="route-summary">
+              <h4>如果更想拍港风街头，把上午留给九龙街区</h4>
+              <p>凯悦出发后直奔旺角，只走西洋菜南街 / 女人街外围、星际城市、油麻地警署，再在佐敦 / 庙街附近午餐，随后回酒店取行李。全程不跨海，节奏更集中。</p>
+            </div>
           </div>
           <div class="timeline">
             <div class="timeline-item">
@@ -997,7 +864,7 @@
               </div>
               <div>
                 <h4>上午必须早走</h4>
-                <p>不论选哪条线，上午就是唯一能自由使用的观光窗口；如果磨到中午才出门，整天的观光价值会急剧下降。</p>
+                <p>不论选哪条线，上午都是当天唯一可自由使用的观光窗口。越晚出门，D3 的可玩价值越低。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -1006,8 +873,8 @@
                 <span>只走一条主线</span>
               </div>
               <div>
-                <h4>默认推荐走中环 + 山顶；若更想拍港味街头，再切旺角线</h4>
-                <p>两条线互斥，不跨海叠加，也不再塞回尖沙咀海旁。把“第一次来香港的经典感”和“港风街头感”清晰分开，减少纠结。</p>
+                <h4>不要跨海叠加，也不要把两条线拼在一起</h4>
+                <p>经典首访线负责山顶和港岛天际线，港味街头线负责九龙街区氛围。二选一，体验才完整。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -1016,18 +883,18 @@
                 <span>回尖沙咀午餐</span>
               </div>
               <div>
-                <h4>午餐是返程前的节奏缓冲</h4>
-                <p>不要把午餐安排在远处，更不要中午后还在新景点继续加点。此时应该进入回收动线，不再增加不确定性。</p>
+                <h4>午餐放回尖沙咀</h4>
+                <p>这顿饭既是休整，也是返程前的节奏缓冲。不要把午餐安排在远处，更不要中午后继续加新点。</p>
               </div>
             </div>
             <div class="timeline-item">
               <div class="time">
                 <strong>13:10 - 14:00</strong>
-                <span>酒店取行李</span>
+                <span>回酒店拿行李</span>
               </div>
               <div>
-                <h4>必须先回酒店拿行李</h4>
-                <p>返程约束高于所有观光。拿到行李后，下午就不应再安排任何远点位和排队项目。</p>
+                <h4>必须先回酒店</h4>
+                <p>返程约束高于所有观光。拿到行李后就不再安排任何新的远点位。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -1037,7 +904,7 @@
               </div>
               <div>
                 <h4>控制出发窗口</h4>
-                <p>把这段当作硬门槛，而不是“参考时间”。宁可在站内多等，也不要赌周六下午尖沙咀到西九龙的路上不出波动。</p>
+                <p>宁可早点到站，也不要把 D3 下午押在交通波动上。</p>
               </div>
             </div>
             <div class="timeline-item">
@@ -1047,12 +914,9 @@
               </div>
               <div>
                 <h4>17:30 固定返广</h4>
-                <p>到站后只做安检、候车、简单补给。D3 中午以后不再继续观光，是整个三天里最不能放松的规则。</p>
+                <p>到站后只做安检、候车和简单补给。D3 中午以后不再继续观光。</p>
               </div>
             </div>
-          </div>
-          <div class="return-lock">
-            D3 的正确心法不是“还能不能再塞一个点”，而是“怎么确保观光完整又不误车”。只要过了 12:00，所有决策都必须服从回尖沙咀、拿行李、进西九龙。
           </div>
         </article>
       </section>
@@ -1060,230 +924,28 @@
       <section class="section-card">
         <div class="section-head">
           <div>
-            <h2>地图与路线决策区</h2>
-            <p>每条线都给出清晰动线、适用时段、情侣友好度与沿路吃饭逻辑，不只是线路名字。</p>
-          </div>
-          <div class="route-meta">
-            <span>可视化动线</span>
-            <span>景点简介</span>
-            <span>吃饭决策</span>
-          </div>
-        </div>
-        <div class="decision-grid">
-          <article class="decision-card">
-            <div class="visual-card task">
-              <svg viewBox="0 0 600 220" aria-hidden="true">
-                <defs>
-                  <linearGradient id="harborGlowA" x1="0" x2="1">
-                    <stop offset="0%" stop-color="#ffe7b5" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#85d3d9" stop-opacity="0.7"/>
-                  </linearGradient>
-                </defs>
-                <rect width="600" height="220" fill="none"/>
-                <path d="M0 188 C120 170, 220 210, 360 190 S520 180, 600 196 L600 220 L0 220 Z" fill="rgba(255,255,255,0.1)"/>
-                <path d="M42 152 C108 118, 180 122, 236 148 S360 184, 440 140 546 138 600 152" fill="none" stroke="url(#harborGlowA)" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 18"/>
-                <circle cx="84" cy="148" r="10" fill="#ffd58e"/>
-                <circle cx="196" cy="137" r="10" fill="#ffd58e"/>
-                <circle cx="322" cy="167" r="10" fill="#ffd58e"/>
-                <circle cx="458" cy="145" r="10" fill="#ffd58e"/>
-                <rect x="40" y="90" width="18" height="62" rx="4" fill="rgba(255,255,255,0.18)"/>
-                <rect x="72" y="68" width="26" height="84" rx="6" fill="rgba(255,255,255,0.2)"/>
-                <rect x="112" y="82" width="22" height="70" rx="6" fill="rgba(255,255,255,0.16)"/>
-                <rect x="476" y="52" width="24" height="94" rx="7" fill="rgba(255,255,255,0.18)"/>
-                <rect x="510" y="72" width="18" height="74" rx="5" fill="rgba(255,255,255,0.16)"/>
-                <text x="42" y="44" fill="#fff6ea" font-size="18" font-family="Noto Sans SC">D2 任务完成后的奖励式海旁收尾</text>
-              </svg>
-            </div>
-            <div class="visual-copy">
-              <div class="decision-rank">D2 固定主线</div>
-              <h3>尖沙咀任务收尾夜景线</h3>
-              <div class="route-meta">
-                <span>适用日期：D2 晚上</span>
-                <span>是否跨海：否</span>
-                <span>赶时间友好：高</span>
-                <span>情侣适配：高</span>
-              </div>
-              <p>这是任务完成后的收口线，不是第二天主观光。把 K11 / 海港城晚餐、尖沙咀海旁、星光大道与天星码头外围串成一条紧凑的奖励路线。</p>
-              <div class="route-line">
-                <div class="route-stop">
-                  <strong>尖沙咀凯悦</strong>
-                  <p>从酒店直接开始，节省转场成本；如果下午购机顺利，先回房放下战利品再出门最稳。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>K11 / 海港城晚餐段</strong>
-                  <p>适合选一顿不需要排太久的商场晚餐。吃饭和海旁之间衔接顺，不会把节奏拖慢。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>尖沙咀海旁 + 星光大道</strong>
-                  <p>重点是维港夜景和散步感。D2 已经看过海旁后，D3 就不再把维港当主体验，避免重复。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>1881 / 天星码头外围</strong>
-                  <p>作为最后收尾点更合理，灯光氛围足，但又不把夜里动线拉得太远。</p>
-                </div>
-              </div>
-              <div class="food-card">
-                <h4>沿路吃什么</h4>
-                <p>晚餐选商场内稳定出餐的港式 / 日式 / 茶餐厅最省时；海旁段更适合买饮品或小甜品边走边看景。D2 不建议排队吃网红大店，因为它会直接挤压任务缓冲时间。</p>
-              </div>
-              <p class="route-note">明确排除：旺角、油麻地、中环都不在这晚出现。它的价值就是“近、顺、漂亮、好收口”。</p>
-            </div>
-          </article>
-
-          <article class="decision-card">
-            <div class="visual-card classic">
-              <svg viewBox="0 0 600 220" aria-hidden="true">
-                <defs>
-                  <linearGradient id="classicGlow" x1="0" x2="1">
-                    <stop offset="0%" stop-color="#ffe1a2"/>
-                    <stop offset="100%" stop-color="#d0f1ff"/>
-                  </linearGradient>
-                </defs>
-                <path d="M0 220 L0 170 C85 154, 148 126, 220 126 S340 158, 420 140 538 82 600 88 L600 220 Z" fill="rgba(255,255,255,0.08)"/>
-                <path d="M88 178 C120 134, 164 116, 206 100 S312 82, 376 98 492 116 548 70" fill="none" stroke="url(#classicGlow)" stroke-width="8" stroke-linecap="round"/>
-                <circle cx="94" cy="172" r="11" fill="#ffe1a2"/>
-                <circle cx="232" cy="94" r="11" fill="#ffe1a2"/>
-                <circle cx="394" cy="101" r="11" fill="#ffe1a2"/>
-                <circle cx="546" cy="72" r="11" fill="#ffe1a2"/>
-                <rect x="54" y="146" width="20" height="28" rx="4" fill="rgba(255,255,255,0.18)"/>
-                <rect x="108" y="122" width="22" height="48" rx="5" fill="rgba(255,255,255,0.2)"/>
-                <rect x="158" y="106" width="26" height="62" rx="6" fill="rgba(255,255,255,0.18)"/>
-                <path d="M500 126 L548 62 L570 126 Z" fill="rgba(255,255,255,0.18)"/>
-                <text x="44" y="44" fill="#fff6ea" font-size="18" font-family="Noto Sans SC">第一次来香港，优先给山顶和港岛天际线</text>
-              </svg>
-            </div>
-            <div class="visual-copy">
-              <div class="decision-rank">D3 默认推荐</div>
-              <h3>中环 + 山顶经典首访线</h3>
-              <div class="route-meta">
-                <span>适用日期：D3 上午</span>
-                <span>是否跨海：是</span>
-                <span>赶时间友好：中高</span>
-                <span>情侣适配：很高</span>
-              </div>
-              <p>如果这是第一次来香港，这条线更值得优先给。它提供的是“经典香港”的俯瞰视角，而不是 D2 已经看过的海旁夜景重复版。</p>
-              <div class="route-line">
-                <div class="route-stop">
-                  <strong>凯悦 → 过海去中环</strong>
-                  <p>要早出发，才能把交通、排队和观景都留在上午完成，不挤压返程前的回收窗口。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>Peak Tram Lower Terminus</strong>
-                  <p>山顶缆车本身就是经典体验，适合第一次来香港时优先打卡。官方建议早去更利于避开排队高峰。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>山顶 / 凌霄阁</strong>
-                  <p>价值在于港岛与维港整体天际线的“开阔感”。它和 D2 的海旁散步是两种完全不同的观看方式。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>回尖沙咀午餐 → 酒店取行李</strong>
-                  <p>只保留主体验，不额外延展去大馆、半山扶梯、上环，确保中午前能稳妥回收。</p>
-                </div>
-              </div>
-              <div class="food-card">
-                <h4>沿路吃什么</h4>
-                <p>早餐宜在出发前快吃，别把第一餐变成排队项目；午餐放回尖沙咀最合理，既能休整，也能和取行李动作拼在一起。若想边看景边吃，把轻食和咖啡留给山顶，不建议在中环临时扩线找店。</p>
-              </div>
-              <p class="route-note">这是“第一次来香港更值得去”的主线。核心是山顶经典感，不再加大馆、半山扶梯、上环等支线。</p>
-            </div>
-          </article>
-
-          <article class="decision-card">
-            <div class="visual-card street">
-              <svg viewBox="0 0 600 220" aria-hidden="true">
-                <defs>
-                  <linearGradient id="streetGlow" x1="0" x2="1">
-                    <stop offset="0%" stop-color="#ffb38d"/>
-                    <stop offset="100%" stop-color="#ffdca8"/>
-                  </linearGradient>
-                </defs>
-                <rect x="38" y="52" width="78" height="118" rx="8" fill="rgba(255,255,255,0.12)"/>
-                <rect x="138" y="34" width="76" height="136" rx="8" fill="rgba(255,255,255,0.15)"/>
-                <rect x="232" y="68" width="58" height="102" rx="8" fill="rgba(255,255,255,0.1)"/>
-                <rect x="308" y="22" width="92" height="148" rx="8" fill="rgba(255,255,255,0.14)"/>
-                <rect x="420" y="48" width="60" height="122" rx="8" fill="rgba(255,255,255,0.12)"/>
-                <rect x="496" y="84" width="52" height="86" rx="8" fill="rgba(255,255,255,0.14)"/>
-                <path d="M62 154 H548" stroke="url(#streetGlow)" stroke-width="8" stroke-linecap="round" stroke-dasharray="1 20"/>
-                <circle cx="88" cy="154" r="10" fill="#ffdca8"/>
-                <circle cx="244" cy="154" r="10" fill="#ffdca8"/>
-                <circle cx="382" cy="154" r="10" fill="#ffdca8"/>
-                <circle cx="510" cy="154" r="10" fill="#ffdca8"/>
-                <text x="42" y="42" fill="#fff6ea" font-size="18" font-family="Noto Sans SC">更想拍港风街头，就把上午留给九龙街区</text>
-              </svg>
-            </div>
-            <div class="visual-copy">
-              <div class="decision-rank">D3 备选路线</div>
-              <h3>旺角 + 星际城市 + 油麻地警署港味线</h3>
-              <div class="route-meta">
-                <span>适用日期：D3 上午</span>
-                <span>是否跨海：否</span>
-                <span>赶时间友好：高</span>
-                <span>情侣适配：高</span>
-              </div>
-              <p>这条线更偏街头、扫街和小红书常见的港味氛围感。重点不是经典俯瞰，而是招牌、商场、街市和旧九龙的密集节奏。</p>
-              <div class="route-line">
-                <div class="route-stop">
-                  <strong>凯悦 → 旺角</strong>
-                  <p>全程不跨海，移动成本低，适合作为“更稳的返程日上午线”。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>西洋菜南街 / 女人街外围</strong>
-                  <p>女人街和旺角街区适合拍人流、招牌和摊位密度，氛围感更强，典型港风街拍素材集中。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>星际城市</strong>
-                  <p>补一段经典港式商场感，让这条线不只剩街拍，也多一点老派电子与模型迷的气质。</p>
-                </div>
-                <div class="route-stop">
-                  <strong>油麻地警署 → 佐敦 / 庙街午餐</strong>
-                  <p>油麻地警署属于高辨识度港剧地标；庙街一带更适合把“街头氛围”收成一顿午餐，再顺势回酒店。</p>
-                </div>
-              </div>
-              <div class="food-card">
-                <h4>沿路吃什么</h4>
-                <p>早餐可在尖沙咀快吃后上路；旺角段适合奶茶、面包、烧味等短停补给；真正坐下来吃饭，建议放在佐敦 / 庙街附近，方便控制回酒店节奏。返程日前不要把街头线吃成多段排队打卡。</p>
-              </div>
-              <p class="route-note">铜锣湾不作为独立主线；如果你们比起街头拍照更想购物，可以在文案层面把它当作“替换旺角线”的次级说明，但不再扩成第四条路线。</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-card">
-        <div class="section-head">
-          <div>
             <h2>办卡与购机清单</h2>
-            <p>把风险点写清楚，避免现场靠记忆做判断。</p>
+            <p>把需要现场判断的要点提前写清楚。</p>
           </div>
         </div>
         <div class="check-grid">
           <article class="check-card">
-            <h3>BOCHK 借记卡：线上办理提醒</h3>
-            <div class="source-tags">
-              <span>地点：尖沙咀凯悦酒店 WiFi</span>
-              <span>方式：App 线上办理</span>
-              <span>结果：以资格校验与官方审核为准</span>
-            </div>
+            <h3>BOCHK 借记卡</h3>
+            <p>线上办理地点就放在尖沙咀凯悦的酒店 WiFi 下，重点是稳定、好补资料、不中断下午的任务。</p>
             <ul>
-              <li>先确认自己是否符合 BOCHK Mobile Account Opening 的资格边界，再开始流程。</li>
-              <li>准备有效身份证明、手机号、住址、邮箱、TIN 等常见资料；若使用 `iAM Smart` 或拍卡验证，按官方流程执行。</li>
-              <li>官方页面说明，18 岁及以上用户在周一至周六 09:00 - 20:00（不含公众假期）内成功开户，账户可较快进入可用状态；若在非服务时段提交，会延到下一工作时段处理。</li>
-              <li>页面不承诺必开成功，也不建议为此专门跑分行。若流程卡住，优先保住 D2 下午购机时间。</li>
+              <li>先看自己是否符合线上办理资格，再进入流程。</li>
+              <li>准备身份证明、手机号、住址、邮箱、TIN 等资料。</li>
+              <li>若遇到资格不符、影像识别失败、补件或人工审核，立刻止损，不继续吞时间。</li>
             </ul>
           </article>
           <article class="check-card">
-            <h3>RICOH GR III：代购执行策略</h3>
-            <div class="source-tags">
-              <span>优先级：高于普通观光</span>
-              <span>主战场：尖沙咀 / 海港城 / 广东道</span>
-              <span>备援：西九龙</span>
-            </div>
+            <h3>RICOH GR III</h3>
+            <p>购机优先级高于普通观光。主战场锁在尖沙咀 / 海港城 / 广东道，西九龙只做当天备援。</p>
             <ul>
-              <li>先电话或在线问库存，再移动；不要靠“到店碰碰运气”浪费广东道来回时间。</li>
-              <li>先确认是 GR III 还是 GR III HDF / GR IIIx，避免朋友要的是标准款却被现场节奏带跑。</li>
-              <li>成交前核对：港行版本、机身序列号、保修方式、发票抬头、包装封条、配件是否齐全、电池循环状态是否正常。</li>
-              <li>现场验机至少确认：开关机、镜头伸缩、对焦、触屏、拨轮、热靴、闪光同步、WiFi / 蓝牙、像素坏点、机身外观与镜头无明显灰尘或划伤。</li>
-              <li>买完先回酒店放置，再去吃饭和走海旁夜景线，不背着新相机继续长距离移动。</li>
+              <li>先问库存，再移动，不做无效来回。</li>
+              <li>先确认型号，再确认港行、发票、配件和保修。</li>
+              <li>现场至少验：开关机、镜头伸缩、对焦、触屏、拨轮、WiFi / 蓝牙和外观。</li>
+              <li>成交后先回酒店放置，再继续晚餐和夜景线。</li>
             </ul>
           </article>
         </div>
@@ -1292,60 +954,339 @@
       <section class="section-card">
         <div class="section-head">
           <div>
-            <h2>信息来源</h2>
-            <p>官方资料优先，路线风格参考公开可检索内容做归纳，不直接照搬小红书文案。</p>
+            <h2>路线地图与景点预览</h2>
+            <p>看清每条线真正怎么走，再决定 D3 选哪条。</p>
           </div>
           <div class="chips">
-            <span>检索日期：2026-03-07</span>
-            <span>官方优先</span>
+            <span class="chip">真实路线地图</span>
+            <span class="chip">景点预览图</span>
+            <span class="chip">适合情侣散步</span>
           </div>
         </div>
-        <div class="source-grid">
-          <article class="source-card">
-            <h3>银行与酒店</h3>
-            <p>BOCHK 的 Mobile Account Opening FAQ 与服务页用于确认线上开户资格边界和服务时段；Hyatt 官方页用于确认尖沙咀凯悦的正式地址与酒店信息。</p>
-            <ul>
-              <li><a href="https://www.bochk.com/dam/more/accountopening/en.html" target="_blank" rel="noreferrer">BOCHK Mobile Account Opening FAQ</a></li>
-              <li><a href="https://www.bochk.com/s/w/WM_E1" target="_blank" rel="noreferrer">BOCHK Mobile Account Opening 入口页</a></li>
-              <li><a href="https://www.hyatt.com/hyatt-regency/en-US/honhr-hyatt-regency-hong-kong-tsim-sha-tsui/hotel-info" target="_blank" rel="noreferrer">Hyatt Regency Hong Kong, Tsim Sha Tsui 官方信息</a></li>
-            </ul>
+
+        <div class="route-stack">
+          <article class="route-showcase">
+            <div class="route-copy">
+              <div class="chips">
+                <span class="meta-pill">D2 晚上</span>
+                <span class="meta-pill">不跨海</span>
+                <span class="meta-pill">任务完成后出发</span>
+              </div>
+              <h3>尖沙咀任务收尾夜景线</h3>
+              <p>从凯悦出门，先接 K11 / 海港城晚餐段，再沿尖沙咀海旁走到星光大道、1881 和天星码头外围。它的价值就是近、顺、漂亮、能收口。</p>
+            </div>
+            <div class="map-frame">
+              <div id="map-d2" class="map-canvas" aria-label="D2 尖沙咀任务收尾夜景线地图"></div>
+            </div>
+            <div class="route-points">
+              <div class="route-point">
+                <strong>凯悦 → K11 / 海港城</strong>
+                <p>先把晚餐吃在商场带，能快速坐下、也方便在天黑前切到海旁。</p>
+              </div>
+              <div class="route-point">
+                <strong>海旁 → 星光大道</strong>
+                <p>主体验是维港夜景和海风散步，适合情侣慢走，不适合再临时插入远点位。</p>
+              </div>
+              <div class="route-point">
+                <strong>1881 / 天星码头外围 → 回酒店</strong>
+                <p>把最后一段留给灯光氛围和码头感，收完就回酒店，第二天不再重复维港海旁。</p>
+              </div>
+            </div>
+            <div class="spot-grid">
+              <article class="spot-card">
+                <div class="spot-image">
+                  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/K11_MUSEA_Sunken_Plaza_201911.jpg" alt="K11 MUSEA 外观">
+                </div>
+                <div class="spot-copy">
+                  <h4>K11 / 海港城晚餐段</h4>
+                  <div class="spot-tags">
+                    <span class="spot-tag">晚餐起点</span>
+                    <span class="spot-tag">快吃友好</span>
+                  </div>
+                  <p>这一段的任务是把晚餐吃稳，不拖节奏。商场餐饮密度高，适合直接衔接海旁。</p>
+                </div>
+              </article>
+              <article class="spot-card">
+                <div class="spot-image">
+                  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/2024-12-27_Avenue_of_Stars%2C_Hong_Kong.jpg" alt="香港星光大道">
+                </div>
+                <div class="spot-copy">
+                  <h4>星光大道</h4>
+                  <div class="spot-tags">
+                    <span class="spot-tag">夜景主场</span>
+                    <span class="spot-tag">散步感强</span>
+                  </div>
+                  <p>这里负责维港夜景和海旁散步，是 D2 晚上的主景点；看完后 D3 就不再回到同一批海旁体验。</p>
+                </div>
+              </article>
+              <article class="spot-card">
+                <div class="spot-image">
+                  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1881_Heritage%2C_Hong_Kong.JPG" alt="1881 Heritage">
+                </div>
+                <div class="spot-copy">
+                  <h4>1881 / 天星码头外围</h4>
+                  <div class="spot-tags">
+                    <span class="spot-tag">收尾段</span>
+                    <span class="spot-tag">灯光氛围</span>
+                  </div>
+                  <p>维持夜晚仪式感，但不继续拉远动线。收尾看一轮灯光就回酒店，最舒服。</p>
+                </div>
+              </article>
+            </div>
           </article>
-          <article class="source-card">
-            <h3>景点与路线</h3>
-            <p>HKTB 和 The Peak 官方资料用于确定 D2 海旁线与 D3 经典线的景点边界和开放信息，避免把路线设计成网红拼盘。</p>
-            <ul>
-              <li><a href="https://www.discoverhongkong.com/us/place-to-go/attractions/avenue-of-stars.html" target="_blank" rel="noreferrer">HKTB: Avenue of Stars</a></li>
-              <li><a href="https://www.thepeak.com.hk/en/getting-to-the-peak/location" target="_blank" rel="noreferrer">The Peak: Peak Tram Lower Terminus 与开放时间</a></li>
-              <li><a href="https://www.thepeak.com.hk/en/getting-to-the-peak/plan-your-journey" target="_blank" rel="noreferrer">The Peak: Suggested Itinerary</a></li>
-              <li><a href="https://www.discoverhongkong.com/hk-eng/interactive-map/ladies-market.html" target="_blank" rel="noreferrer">HKTB: Ladies' Market</a></li>
-              <li><a href="https://www.discoverhongkong.com/seasia/explore/attractions/temple-street.html" target="_blank" rel="noreferrer">HKTB: Temple Street</a></li>
-            </ul>
-          </article>
-          <article class="source-card">
-            <h3>购机与路线风格归纳</h3>
-            <p>Fortress 商品页和门店页用于确认 GR III 在香港仍有门店销售入口与尖沙咀 Ocean Centre 门店位置；“港味街头线”则参考公开可检索的旺角 / 庙街 citywalk 共性做路线归纳，不把二手内容当官方事实。</p>
-            <ul>
-              <li><a href="https://www.fortress.com.hk/zh-cn/product/gr-iii-%E8%BD%BB%E4%BE%BF%E7%9B%B8%E6%9C%BA/p/BP_13267935" target="_blank" rel="noreferrer">Fortress: RICOH GR III 商品页</a></li>
-              <li><a href="https://www.fortress.com.hk/en/store/ftrhk_4130_ZT" target="_blank" rel="noreferrer">Fortress: Ocean Centre Store</a></li>
-              <li><a href="https://www.fortress.com.hk/en/store-locator" target="_blank" rel="noreferrer">Fortress: Store Locator</a></li>
-              <li><a href="https://www.discoverhongkong.com/us/plan/guided-tour/kowloon-markets-walking.html" target="_blank" rel="noreferrer">HKTB: Kowloon Markets Walk</a></li>
-            </ul>
+
+          <article class="route-showcase">
+            <div class="route-copy">
+              <div class="chips">
+                <span class="meta-pill">D3 上午</span>
+                <span class="meta-pill">二选一</span>
+                <span class="meta-pill">12:00 后回尖沙咀</span>
+              </div>
+              <h3>D3 主线选择</h3>
+              <p>在这里点选你们更想走的那条。上面的 D3 概览和下面的地图、景点预览会同步切换。</p>
+            </div>
+            <div class="route-switch" data-route-group="d3">
+              <button type="button" class="active" data-route="classic">中环 + 山顶经典首访线</button>
+              <button type="button" data-route="street">旺角 + 星际城市 + 油麻地警署港味线</button>
+            </div>
+
+            <div class="route-panel" data-route-panel="classic">
+              <div class="route-copy">
+                <div class="route-meta">
+                  <span>跨海：是</span>
+                  <span>适合第一次来香港</span>
+                  <span>情侣观景感最强</span>
+                </div>
+                <p>早上从凯悦直接过海去中环，压住排队和山顶缆车时间，把“山顶俯瞰香港”的经典体验留在上午完成。</p>
+              </div>
+              <div class="map-frame">
+                <div id="map-d3-classic" class="map-canvas" aria-label="D3 中环山顶路线地图"></div>
+              </div>
+              <div class="route-points">
+                <div class="route-point">
+                  <strong>凯悦 → 中环 / Peak Tram Lower Terminus</strong>
+                  <p>越早过海越好，上午完成缆车和山顶，才能给返程倒推留充足缓冲。</p>
+                </div>
+                <div class="route-point">
+                  <strong>山顶 / 凌霄阁</strong>
+                  <p>核心价值就是俯瞰港岛与维港的整体天际线，是第一次来香港最值得优先给的体验。</p>
+                </div>
+                <div class="route-point">
+                  <strong>回尖沙咀午餐 → 取行李 → 西九龙</strong>
+                  <p>经典线只保留主体验，不再外加大馆、半山扶梯、上环等支线。</p>
+                </div>
+              </div>
+              <div class="spot-grid">
+                <article class="spot-card">
+                  <div class="spot-image">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Peak_Tram_new_lower_terminus_station.jpg" alt="山顶缆车中环总站">
+                  </div>
+                  <div class="spot-copy">
+                    <h4>Peak Tram Lower Terminus</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">经典起点</span>
+                      <span class="spot-tag">建议早到</span>
+                    </div>
+                    <p>山顶缆车本身就是体验的一部分。早点到，能把排队和上山时间控制在上午。</p>
+                  </div>
+                </article>
+                <article class="spot-card">
+                  <div class="spot-image">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hong-Kong_skyline.JPG" alt="从太平山顶俯瞰香港天际线">
+                  </div>
+                  <div class="spot-copy">
+                    <h4>山顶俯瞰港岛天际线</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">首访优先</span>
+                      <span class="spot-tag">开阔感最强</span>
+                    </div>
+                    <p>这条线的核心不是“多走几个点”，而是把香港最经典的高位视角完整留给上午。</p>
+                  </div>
+                </article>
+                <article class="spot-card">
+                  <div class="spot-image">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hong_Kong_Peak_Tower_IMG_5295.JPG" alt="凌霄阁外观">
+                  </div>
+                  <div class="spot-copy">
+                    <h4>凌霄阁 / 山顶区</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">情侣约会感</span>
+                      <span class="spot-tag">停留集中</span>
+                    </div>
+                    <p>把山顶作为唯一主景点更合理，看景、拍照、轻食都能集中解决，不把路线切碎。</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div class="route-panel" data-route-panel="street" hidden>
+              <div class="route-copy">
+                <div class="route-meta">
+                  <span>跨海：否</span>
+                  <span>港风街头感更强</span>
+                  <span>返程日上午更稳</span>
+                </div>
+                <p>把上午留给九龙街区，不跨海、不追大景，专注旺角和油麻地的招牌、人流、老商场与港剧感。</p>
+              </div>
+              <div class="map-frame">
+                <div id="map-d3-street" class="map-canvas" aria-label="D3 旺角油麻地路线地图"></div>
+              </div>
+              <div class="route-points">
+                <div class="route-point">
+                  <strong>凯悦 → 旺角</strong>
+                  <p>不跨海，移动成本低，适合把港味街头感集中在同一段上午里。</p>
+                </div>
+                <div class="route-point">
+                  <strong>西洋菜南街 / 女人街外围 → 星际城市</strong>
+                  <p>先拍街景，再转进老派商场气质，动线密度高，但不需要大跨区。</p>
+                </div>
+                <div class="route-point">
+                  <strong>油麻地警署 → 佐敦 / 庙街午餐 → 回酒店</strong>
+                  <p>把港剧辨识度最高的一段放在后半程，午餐后直接进入取行李和返程模式。</p>
+                </div>
+              </div>
+              <div class="spot-grid">
+                <article class="spot-card">
+                  <div class="spot-image">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mongkok_LadiesMarket.jpg" alt="旺角女人街">
+                  </div>
+                  <div class="spot-copy">
+                    <h4>女人街外围</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">街头感</span>
+                      <span class="spot-tag">扫街友好</span>
+                    </div>
+                    <p>这里适合拍摊位、招牌和人流密度，是整条街头线最直观的港味起手式。</p>
+                  </div>
+                </article>
+                <article class="spot-card">
+                  <div class="spot-image">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sai_Yeung_Choi_Street_South_at_night_outside_Mong_Kok_MTR_station.JPG" alt="西洋菜南街夜景">
+                  </div>
+                  <div class="spot-copy">
+                    <h4>西洋菜南街 / 星际城市一带</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">商场 + 街景</span>
+                      <span class="spot-tag">霓虹感</span>
+                    </div>
+                    <p>把街头感和老派商场气质拼在一起，比单纯逛一条街更完整，也更像港片里的旧九龙节奏。</p>
+                  </div>
+                </article>
+                <article class="spot-card">
+                  <div class="spot-image">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Yau_Ma_Tei_Police_Station.JPG" alt="油麻地警署">
+                  </div>
+                  <div class="spot-copy">
+                    <h4>油麻地警署</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">港剧辨识度高</span>
+                      <span class="spot-tag">午餐前收口</span>
+                    </div>
+                    <p>适合当街头线的尾声，再从这里顺势转去佐敦 / 庙街附近吃午餐，不必再拉回维港。</p>
+                  </div>
+                </article>
+              </div>
+            </div>
           </article>
         </div>
-        <p class="source-footnote">
-          小红书相关思路只用于帮助判断“D3 为什么要拆成经典首访线与港味街头线二选一”，不替代 BOCHK、Hyatt、HKTB、The Peak、Fortress 这些官方事实源。页面里涉及资格、库存、开放时间的内容，均应在出发前再次以官方页面为准。
-        </p>
       </section>
     </main>
-
-    <footer class="footer">
-      <span>适合桌面查看、手机查看与浏览器打印导出 PDF。若要上线，可将本页同步推送到 GitHub Pages 仓库。</span>
-      <span>
-        仓库：<a href="https://github.com/kiseflame/hongkong-trip-plan" target="_blank" rel="noreferrer">kiseflame/hongkong-trip-plan</a>
-        ·
-        页面：<a href="https://kiseflame.github.io/hongkong-trip-plan/" target="_blank" rel="noreferrer">GitHub Pages</a>
-      </span>
-    </footer>
   </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script>
+    const routeLines = {
+      d2: [
+        { name: "尖沙咀凯悦", coord: [22.2976, 114.1781] },
+        { name: "K11 MUSEA", coord: [22.2938, 114.1759] },
+        { name: "海港城", coord: [22.2965, 114.1677] },
+        { name: "星光大道", coord: [22.2933, 114.1751] },
+        { name: "1881 / 天星码头", coord: [22.2952, 114.1696] }
+      ],
+      classic: [
+        { name: "尖沙咀凯悦", coord: [22.2976, 114.1781] },
+        { name: "中环码头 / 中环站", coord: [22.2862, 114.1586] },
+        { name: "Peak Tram Lower Terminus", coord: [22.2770, 114.1549] },
+        { name: "山顶 / 凌霄阁", coord: [22.2711, 114.1498] },
+        { name: "尖沙咀午餐", coord: [22.2972, 114.1725] },
+        { name: "香港西九龙", coord: [22.3049, 114.1602] }
+      ],
+      street: [
+        { name: "尖沙咀凯悦", coord: [22.2976, 114.1781] },
+        { name: "西洋菜南街", coord: [22.3184, 114.1708] },
+        { name: "女人街外围", coord: [22.3184, 114.1694] },
+        { name: "星际城市", coord: [22.3190, 114.1716] },
+        { name: "油麻地警署", coord: [22.3111, 114.1702] },
+        { name: "佐敦 / 庙街午餐", coord: [22.3067, 114.1692] },
+        { name: "香港西九龙", coord: [22.3049, 114.1602] }
+      ]
+    };
+
+    const mapRegistry = {};
+
+    function buildMap(id, key, color) {
+      const map = L.map(id, { zoomControl: false, scrollWheelZoom: false });
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap"
+      }).addTo(map);
+
+      const points = routeLines[key];
+      const latlngs = points.map((point) => point.coord);
+      const line = L.polyline(latlngs, {
+        color,
+        weight: 5,
+        opacity: 0.86
+      }).addTo(map);
+
+      points.forEach((point, index) => {
+        L.circleMarker(point.coord, {
+          radius: 7,
+          color: "#fffaf3",
+          weight: 2,
+          fillColor: color,
+          fillOpacity: 1
+        })
+          .addTo(map)
+          .bindTooltip(`${index + 1}. ${point.name}`, { direction: "top" });
+      });
+
+      map.fitBounds(line.getBounds(), { padding: [24, 24] });
+      mapRegistry[key] = map;
+    }
+
+    buildMap("map-d2", "d2", "#b24a2e");
+    buildMap("map-d3-classic", "classic", "#205968");
+    buildMap("map-d3-street", "street", "#9a4d2d");
+
+    function syncRoutePanels(route) {
+      document.querySelectorAll("[data-route-group='d3'] button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.route === route);
+      });
+
+      document.querySelectorAll("[data-route-panel]").forEach((panel) => {
+        panel.hidden = panel.dataset.routePanel !== route;
+      });
+
+      const selectedMap = mapRegistry[route];
+      if (selectedMap) {
+        window.requestAnimationFrame(() => selectedMap.invalidateSize());
+      }
+    }
+
+    document.querySelectorAll("[data-route-group='d3']").forEach((group) => {
+      group.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-route]");
+        if (!button) return;
+        syncRoutePanels(button.dataset.route);
+      });
+    });
+
+    syncRoutePanels("classic");
+  </script>
 </body>
 </html>
