@@ -739,6 +739,39 @@
       line-height: 1.7;
     }
 
+    .print-plan {
+      display: none;
+    }
+
+    .print-block + .print-block {
+      margin-top: 16px;
+    }
+
+    .print-block h2,
+    .print-block h3 {
+      margin: 0 0 8px;
+    }
+
+    .print-block p,
+    .print-block li {
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.92rem;
+    }
+
+    .print-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .print-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+    }
+
     @media (max-width: 1080px) {
       .hero-grid,
       .route-shell,
@@ -794,19 +827,20 @@
         padding: 0;
       }
 
-      .hero,
-      .section,
-      .day-card,
-      .route-detail,
-      .overview-card,
-      .decision-card,
-      .check-card,
-      .source-card,
-      .panel-block,
-      .spot-card,
-      .food-card,
-      .route-group {
-        box-shadow: none;
+      .page > :not(.print-plan) {
+        display: none !important;
+      }
+
+      .print-plan {
+        display: block;
+      }
+
+      .print-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .print-card,
+      .print-block {
         break-inside: avoid;
         page-break-inside: avoid;
       }
@@ -866,7 +900,7 @@
           <ul class="hero-list" style="margin-top: 14px;">
             <li>D1 不安排跨区夜游，只做入住、吃饭、收资料。</li>
             <li>D2 是真正的核心日，任务顺了，夜景自然顺。</li>
-            <li>D3 默认推荐“西九艺术线”，中环 citywalk 作为更出片的备选。</li>
+            <li>D3 默认推荐“中环 + 山顶经典线”，旺角港味线作为更街头化的备选。</li>
           </ul>
         </aside>
       </div>
@@ -905,14 +939,14 @@
           </div>
         </article>
         <article class="overview-card">
-          <div class="image" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/West_Kowloon_Cultural_District_201801.jpg')"></div>
+          <div class="image" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Hong_Kong_skyline_from_Victoria_Peak.jpg')"></div>
           <div class="overview-body">
             <div class="kicker">D3 / 返程前</div>
-            <h3>返程日不是一整天空白，而是半天窗口</h3>
-            <p>你们 2026-03-21 周六 17:30 从香港西九龙出发，建议最晚 16:00 到站，所以 D3 的路线必须先考虑回酒店拿行李，再考虑观光，不适合远距离跨海乱跑。</p>
+            <h3>D3 留给第一次来香港的经典感或街头感</h3>
+            <p>3 月 21 日周六 17:30 从香港西九龙返程，D3 不是继续复制 D2 海旁夜景，而是集中给“第一次来香港”的半日观光窗口。你们可以在山顶经典线和旺角港味线之间二选一，但都必须中午后回尖沙咀拿行李。</p>
             <ul class="mini-list">
-              <li>15:20 至 15:40 从凯悦出发最稳。</li>
-              <li>默认选西九，想更有 citywalk 气质再选中环。</li>
+              <li>默认推荐中环 + 山顶经典线，记忆点最强。</li>
+              <li>想更有小红书街头感，就选旺角 + 油麻地线。</li>
             </ul>
           </div>
         </article>
@@ -944,11 +978,11 @@
           </div>
         </article>
         <article class="decision-card">
-          <div class="image" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Central-Mid-Levels_Escalators_2019.jpg')"></div>
+          <div class="image" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Peak_Tram_Hong_Kong_2022.jpg')"></div>
           <div class="decision-body">
             <div class="kicker">D3 决策</div>
-            <h3>返程日前半天只在“稳”与“出片”之间二选一</h3>
-            <p>想稳，走西九艺术线；想更像小红书热门 citywalk，走压缩版中环漫步线。两条都不是全天路线，必须默认中午回尖沙咀、下午回酒店拿行李。</p>
+            <h3>返程日前半天只在“经典首访”与“港味街头”之间二选一</h3>
+            <p>D3 不再重复 D2 的尖沙咀海旁。默认推荐中环 + 山顶，把第一次来香港最该补的视角一次补齐；如果你们更想拍街头氛围和扫街，就切到旺角 + 星际城市 + 油麻地警署线。</p>
           </div>
         </article>
       </div>
@@ -1033,7 +1067,7 @@
             </li>
             <li>
               <div class="time">13:10 - 15:30</div>
-              <p class="timeline-copy"><strong>必做 2：</strong>集中购买 RICOH GR III。优先丰泽、百老汇、海港城周边连锁门店。</p>
+              <p class="timeline-copy"><strong>必做 2：</strong>集中购买 RICOH GR III。优先尖沙咀 / 海港城 / 广东道门店，尖沙咀无果时再把西九龙商圈作为备援。</p>
             </li>
             <li>
               <div class="time">15:40 - 16:20</div>
@@ -1041,7 +1075,7 @@
             </li>
             <li>
               <div class="time">16:30 - 20:45</div>
-              <p class="timeline-copy">进入轻观光时段：K11 MUSEA、星光大道、维港海滨、海港城或 1881 二选一，晚餐放在尖沙咀海旁一带。</p>
+              <p class="timeline-copy">进入收尾夜景线：凯悦出发，经 K11 或海港城解决晚餐，再走尖沙咀海旁、星光大道、1881 / 天星码头外围，最后直接回酒店。</p>
             </li>
             <li>
               <div class="time">21:00 后</div>
@@ -1068,16 +1102,16 @@
               <p class="timeline-copy">尖沙咀附近早餐，不拖太久，把上午完整留给散步和拍照。</p>
             </li>
             <li>
-              <div class="time">09:20 - 11:40</div>
-              <p class="timeline-copy"><strong>默认推荐：</strong>路线 B 西九艺术线。最轻松，离返程站近，周六上午更不容易慌。</p>
+              <div class="time">09:10 - 12:00</div>
+              <p class="timeline-copy"><strong>默认推荐：</strong>路线 1 中环 + 山顶经典线。上午过海去中环，Peak Tram 上山补齐第一次来香港的经典视角，中午前后开始回尖沙咀。</p>
             </li>
             <li>
-              <div class="time">09:20 - 11:40</div>
-              <p class="timeline-copy"><strong>想更有 citywalk 感：</strong>路线 D 中环城市漫步线，但必须控制在中午前开始回尖沙咀。</p>
+              <div class="time">09:20 - 11:50</div>
+              <p class="timeline-copy"><strong>更想拍港风街头：</strong>路线 2 旺角 + 星际城市 + 油麻地警署线。全程留在九龙，不再追加尖沙咀海旁，避免和 D2 重复。</p>
             </li>
             <li>
               <div class="time">12:00 - 13:10</div>
-              <p class="timeline-copy">回尖沙咀午餐；若前一天没买齐配件，可顺手补电池、卡或相机包。</p>
+              <p class="timeline-copy">回尖沙咀午餐；山顶线建议在回程后吃正餐，旺角线则在佐敦 / 尖沙咀收口，不把午餐拖到更远区域。</p>
             </li>
             <li>
               <div class="time">13:10 - 14:00</div>
@@ -1097,7 +1131,7 @@
             </li>
           </ul>
           <ul class="timeline-notes">
-            <li>返程日最怕“中午还在远处上头乱逛”。</li>
+            <li>返程日最怕把 D2 的维港夜景又走一遍，导致真正的新鲜感不够。</li>
             <li>只要 15:20 前还没回到酒店附近，就说明路线已经过长，需要立刻收缩。</li>
           </ul>
         </article>
@@ -1108,28 +1142,28 @@
       <div class="section-head">
         <div>
           <h2>地图与路线决策区</h2>
-          <p>香港路线明确拆成两组：A / C 只服务 D2 晚上，B / D 只服务 D3。每条线路都给出可视化路线、适用时段、景点说明和沿路吃什么。</p>
+          <p>这里只保留 3 条固定卡：D2 一条任务收尾夜景线，D3 两条互斥候选线。目的不是堆路线，而是让两天的香港体验真正拆开，不再重复同一批海旁景点。</p>
         </div>
       </div>
       <div class="route-shell">
         <div class="route-switches">
           <section class="route-group">
-            <h3>D2 晚上适合的路线</h3>
-            <p>前提是下午已经完成办卡和 GR III 购买。只做黄昏到夜晚，不跨太远。</p>
+            <h3>D2 任务收尾夜景线</h3>
+            <p>前提是下午已经完成办卡和 GR III 购买。只服务于尖沙咀任务区和海旁夜景，不再外跳到旺角或中环。</p>
             <div id="route-grid-d2" class="route-grid"></div>
           </section>
           <section class="route-group">
-            <h3>D3 适合的路线</h3>
-            <p>都必须服从 2026-03-21 17:30 西九龙返程。默认以“最晚 16:00 到站”为边界倒推。</p>
+            <h3>D3 纯观光候选线</h3>
+            <p>都必须服从 2026-03-21 17:30 西九龙返程。默认主推中环 + 山顶，旺角港味线作为小红书感更强的备选。</p>
             <div id="route-grid-d3" class="route-grid"></div>
           </section>
         </div>
 
         <article class="route-detail" id="route-detail" style="--detail-gradient:linear-gradient(135deg, #0a6c74, #0f8d90);">
           <div class="route-header">
-            <div class="kicker" id="route-kicker" style="color:#fff1d1;">D2 晚上</div>
-            <h3 id="route-title">路线 A｜经典维港线</h3>
-            <p id="route-subtitle">适合 2026-03-20 16:30 之后。完成任务后直接散步拍夜景，不用为赶时间而切城市。</p>
+            <div class="kicker" id="route-kicker" style="color:#fff1d1;">D2 / 收尾夜景</div>
+            <h3 id="route-title">路线 1｜尖沙咀任务收尾夜景线</h3>
+            <p id="route-subtitle">适合 2026-03-20 16:30 之后。它只负责把任务日漂亮地收口，不承担 D3 的经典观光功能。</p>
             <div class="route-meta" id="route-meta"></div>
           </div>
           <div class="route-content">
@@ -1207,7 +1241,7 @@
       <div class="section-head">
         <div>
           <h2>信息来源</h2>
-          <p>以下链接于 2026-03-07 检索整理。官方资料优先，小红书相关只作为路线风格和热门思路的辅助来源。</p>
+          <p>以下链接于 2026-03-07 检索整理。官方资料优先，小红书相关只作为热门路线方向的公开可检索辅助来源，不直接替代官方信息。</p>
         </div>
       </div>
       <div class="source-grid">
@@ -1220,9 +1254,10 @@
               <li><a href="https://www.bochk.com/m/en/crossborder/personal/financialservicehk/account.html" target="_blank" rel="noopener">BOCHK 跨境开户说明</a>：列明“身处香港的内地访客可通过手机开户”。</li>
               <li><a href="https://its.bochk.com/openAccount/help/ibs_upg_help_boc_s.html" target="_blank" rel="noopener">BOCHK 开立账户帮助页</a>：列出线上开户服务时间与单名账户说明。</li>
               <li><a href="https://www.hyatt.com/hyatt-regency/en-US/hongh-hyatt-regency-hong-kong-tsim-sha-tsui" target="_blank" rel="noopener">尖沙咀凯悦官网</a>。</li>
-              <li><a href="https://www.discoverhongkong.com/us/place-to-go/attractions/avenue-of-stars.html" target="_blank" rel="noopener">香港旅游发展局 - 星光大道</a>。</li>
-              <li><a href="https://www.mplus.org.hk/en/plan-your-visit/" target="_blank" rel="noopener">M+ Plan Your Visit</a>。</li>
-              <li><a href="https://www.taikwun.hk/visit" target="_blank" rel="noopener">Tai Kwun Visiting Information</a>。</li>
+              <li><a href="https://www.discoverhongkong.com/us/place-to-go/attractions/avenue-of-stars.html" target="_blank" rel="noopener">香港旅游发展局 - 星光大道</a>：用于 D2 夜景线。</li>
+              <li><a href="https://www.discoverhongkong.com/us/place-to-go/attractions/tsim-sha-tsui-promenade.html" target="_blank" rel="noopener">香港旅游发展局 - 尖沙咀海滨长廊</a>：用于 D2 海旁段。</li>
+              <li><a href="https://www.thepeak.com.hk/en/getting-to-the-peak/location" target="_blank" rel="noopener">The Peak / Peak Tram 官方到访与开放时间</a>：用于 D3 山顶线。</li>
+              <li><a href="https://www.mplus.org.hk/en/plan-your-visit/" target="_blank" rel="noopener">M+ Plan Your Visit</a>：用于西九龙备援购机与返程区判断。</li>
             </ul>
           </div>
         </article>
@@ -1232,14 +1267,135 @@
             <div class="kicker">公开二手信息</div>
             <h3>小红书热门思路的可检索替代</h3>
             <ul class="source-list">
-              <li><a href="https://std.stheadline.com/sc/realtime/article/1954475/" target="_blank" rel="noopener">星岛日报关于“小红书 x 旅发局香港漫步指南”的报道</a>：用于归纳 D3 citywalk 风格。</li>
-              <li><a href="https://www.mtr.com.hk/en/customer/main/discover-cen-shw.html" target="_blank" rel="noopener">MTR Discover Central / Sheung Wan</a>：作为中环步行可达范围的官方辅助参考。</li>
+              <li><a href="https://std.stheadline.com/sc/realtime/article/1954475/" target="_blank" rel="noopener">星岛日报关于“小红书 x 旅发局香港漫步指南”的报道</a>：用于解释 D3 为什么会提供更街头化的路线思路。</li>
+              <li><a href="https://www.discoverhongkong.com/us/interactive-map/ladies-market.html" target="_blank" rel="noopener">香港旅游发展局 - 女人街</a> 与 <a href="https://www.discoverhongkong.com/us/plan/guided-tour/kowloon-markets-walking.html" target="_blank" rel="noopener">Kowloon Markets Walk</a>：作为旺角 / 油麻地街区感的公开可检索参考。</li>
               <li><a href="https://www.fortress.com.hk/en/product/gr-iii-compact-camera/p/BP_13267935" target="_blank" rel="noopener">Fortress GR III 商品页</a>。</li>
               <li><a href="https://www.fortress.com.hk/en/product/gr-iii-hdf-compact-camera/p/BP_13267644" target="_blank" rel="noopener">Fortress GR III HDF 商品页</a>。</li>
-              <li><a href="https://www.google.com/maps/search/%E5%B0%96%E6%B2%99%E5%92%80+Fortress+%E8%B1%90%E6%BE%A4/" target="_blank" rel="noopener">尖沙咀 Fortress 搜索入口</a> 与 <a href="https://www.google.com/maps/search/%E5%B0%96%E6%B2%99%E5%92%80+Broadway+%E7%99%BE%E8%80%81%E5%8C%AF/" target="_blank" rel="noopener">百老汇搜索入口</a>：出发前一晚再刷门店状态。</li>
+              <li><a href="https://www.google.com/maps/search/%E5%B0%96%E6%B2%99%E5%92%80+Fortress+%E8%B1%90%E6%BE%A4/" target="_blank" rel="noopener">尖沙咀 Fortress 搜索入口</a>、<a href="https://www.google.com/maps/search/%E5%B0%96%E6%B2%99%E5%92%80+Broadway+%E7%99%BE%E8%80%81%E5%8C%AF/" target="_blank" rel="noopener">尖沙咀百老汇搜索入口</a> 与 <a href="https://www.google.com/maps/search/%E8%A5%BF%E4%B9%9D%E9%BE%99+Fortress/" target="_blank" rel="noopener">西九龙 Fortress 搜索入口</a>：用于 D2 购机备援顺序。</li>
             </ul>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="print-plan">
+      <div class="print-block">
+        <h2>广深港情侣旅行规划网页</h2>
+        <p>留档版摘要。行程日期为 2026-03-19 至 2026-03-21，核心原则是少折返、先完成任务、把 D2 做成任务日，把 D3 留给真正不同的观光体验。</p>
+        <div class="print-grid">
+          <article class="print-card">
+            <h3>已确认事实</h3>
+            <ul>
+              <li>D1 2026-03-19 19:30 广州东出发，20:30 抵达深圳北。</li>
+              <li>D2 2026-03-20 10:00 深圳北出发，10:30 抵达香港西九龙。</li>
+              <li>D3 2026-03-21 17:30 从香港西九龙返广州，建议 16:00 前后到站。</li>
+              <li>深圳酒店步行约 6 分钟到深圳北；香港酒店为尖沙咀凯悦。</li>
+            </ul>
+          </article>
+          <article class="print-card">
+            <h3>核心任务</h3>
+            <ul>
+              <li>中银香港借记卡改为线上办理，放在凯悦 WiFi 环境下完成。</li>
+              <li>RICOH GR III 代购优先于普通观光，搜索范围为尖沙咀主战场加西九龙备援。</li>
+              <li>D2 只做任务区和海旁夜景，D3 才做经典线或港味线。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="print-block">
+        <h2>三天时间轴</h2>
+        <div class="print-grid">
+          <article class="print-card">
+            <h3>D1 深圳收口</h3>
+            <ul>
+              <li>20:30 抵达深圳北后直接入住，不跨区夜游。</li>
+              <li>酒店附近快速晚餐，睡前整理通行证、车票、代购需求和充电设备。</li>
+            </ul>
+          </article>
+          <article class="print-card">
+            <h3>D2 任务执行日</h3>
+            <ul>
+              <li>10:30 到港后先去尖沙咀凯悦寄存行李。</li>
+              <li>11:20-12:00 在酒店 WiFi 下办理中银香港线上开户。</li>
+              <li>13:10-15:30 集中扫尖沙咀 / 海港城 / 广东道门店，尖沙咀无果再看西九龙。</li>
+              <li>16:30 之后走尖沙咀任务收尾夜景线，晚餐后沿海旁回酒店。</li>
+            </ul>
+          </article>
+          <article class="print-card">
+            <h3>D3 返程倒推日</h3>
+            <ul>
+              <li>上午只选一条观光线，不再重复 D2 海旁夜景。</li>
+              <li>12:00-13:10 回尖沙咀午餐，13:10-14:00 回酒店取行李。</li>
+              <li>15:20-15:40 出发去西九龙，16:00 前后到站候车。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="print-block">
+        <h2>路线选择</h2>
+        <div class="print-grid">
+          <article class="print-card">
+            <h3>D2 尖沙咀任务收尾夜景线</h3>
+            <p>凯悦 -> K11 或海港城晚餐段 -> 尖沙咀海旁 -> 星光大道 -> 1881 / 天星码头外围 -> 回酒店。</p>
+            <ul>
+              <li>适合时段：2026-03-20 16:30-21:00。</li>
+              <li>跨海：否。情侣友好度高，最适合完成任务后的放松收尾。</li>
+              <li>用餐建议：午餐快吃，晚餐放在 K11 或海港城，甜品可视体力删减。</li>
+            </ul>
+          </article>
+          <article class="print-card">
+            <h3>D3 默认：中环 + 山顶经典首访线</h3>
+            <p>凯悦 -> 中环 -> Peak Tram Lower Terminus -> 山顶 / 凌霄阁 -> 回尖沙咀午餐 -> 酒店取行李 -> 西九龙。</p>
+            <ul>
+              <li>适合第一次来香港，优先补齐港岛天际线和山顶视角。</li>
+              <li>必须早出发，不扩展到半山、大馆或上环。</li>
+              <li>山顶只做轻食或饮品，正餐放回尖沙咀。</li>
+            </ul>
+          </article>
+          <article class="print-card">
+            <h3>D3 备选：旺角 + 星际城市 + 油麻地警署线</h3>
+            <p>凯悦 -> 旺角 -> 西洋菜南街 / 女人街外围 -> 星际城市 -> 油麻地警署 -> 佐敦 / 庙街午餐 -> 回酒店取行李 -> 西九龙。</p>
+            <ul>
+              <li>更偏小红书港味街头感，不跨海，不重复维港夜景。</li>
+              <li>适合喜欢扫街、拍路牌和霓虹街景的情侣。</li>
+              <li>不再追加铜锣湾或尖沙咀海旁，保持返程节奏。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="print-block">
+        <h2>办卡与购机提醒</h2>
+        <div class="print-grid">
+          <article class="print-card">
+            <h3>中银香港线上办理</h3>
+            <ul>
+              <li>准备通行证 / 身份证明、过关凭据、住址信息、常用手机号、税务居民信息。</li>
+              <li>优先在凯悦 WiFi 下完成，方便补件和验证码处理。</li>
+            </ul>
+          </article>
+          <article class="print-card">
+            <h3>GR III 购机策略</h3>
+            <ul>
+              <li>优先尖沙咀与海港城片区，必要时再扩到西九龙。</li>
+              <li>先问库存再移动，先确认现货再成交，买完先回酒店放置。</li>
+              <li>验机重点：封条、序列号、镜头伸缩、对焦、触屏、Wi-Fi、配件与保修信息。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="print-block">
+        <h2>参考来源</h2>
+        <ul>
+          <li>BOCHK 跨境开户说明与开户帮助页。</li>
+          <li>Hyatt Regency Hong Kong, Tsim Sha Tsui 官方页面。</li>
+          <li>香港旅游发展局关于星光大道、尖沙咀海滨长廊、女人街与九龙市场步行线资料。</li>
+          <li>The Peak / Peak Tram 官方页面。</li>
+          <li>Fortress GR III / GR III HDF 商品页，以及尖沙咀与西九龙门店搜索入口。</li>
+        </ul>
       </div>
     </section>
 
@@ -1250,218 +1406,165 @@
 
   <script>
     const routeData = {
-      harbour: {
+      tsimshatsuiNight: {
         group: "d2",
-        kicker: "D2 晚上 / 首选",
-        title: "路线 A｜经典维港线",
-        subtitle: "适合 2026-03-20 16:30 之后。完成任务后直接散步拍夜景，不用为赶时间而切城市。",
+        kicker: "D2 / 任务收尾",
+        title: "路线 1｜尖沙咀任务收尾夜景线",
+        subtitle: "适合 2026-03-20 16:30 之后。它把办卡、购机、入住后的情绪自然收口在九龙海旁，不再提前消耗 D3 的经典观光配额。",
         gradient: "linear-gradient(135deg, #0b5563, #0c8b8f)",
         color: "#0c7f86",
-        summary: "这是 D2 最稳的路线。它完全服务于“办卡结束 + GR3 买完 + 入住后放好东西”的状态，基本只靠步行串联 K11 MUSEA、星光大道和天星码头，既适合情侣散步，也最容易在体力下降时随时收手回酒店。",
-        tags: ["适用日期：D2", "适用时段：16:30 - 21:00", "风格：海景夜拍", "赶时间友好：高", "情侣适配：高"],
-        cardTags: ["夜景最强", "基本不折返", "适合第一次来"],
-        mapNote: "示意图突出尖沙咀海旁的步行顺序，重点在顺路感，而不是精确比例尺。",
-        mapLink: "https://www.google.com/maps/dir/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/K11+MUSEA/Avenue+of+Stars/Tsim+Sha+Tsui+Star+Ferry+Pier/",
+        summary: "这条线是 D2 唯一主路线。它从凯悦和任务区出发，先把晚餐和空调休息解决，再沿尖沙咀海旁、星光大道与 1881 / 天星码头外围慢慢收尾。好处是顺路、好拍、随时能回酒店，也不会和 D3 的山顶或旺角方案重合。",
+        tags: ["适用日期：D2", "适用时段：16:30 - 21:00", "跨海：否", "赶时间友好：高", "情侣适配：高"],
+        cardTags: ["只服务 D2", "看海不折返", "最适合任务后放松"],
+        mapNote: "示意图突出 K11 / 海港城晚餐段到尖沙咀海旁的步行顺序，重点是先吃、再逛、再收尾。",
+        mapLink: "https://www.google.com/maps/dir/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/K11+MUSEA/Ocean+Centre,+Harbour+City/Avenue+of+Stars/1881+Heritage/Tsim+Sha+Tsui+Star+Ferry+Pier/",
         mapPoints: [
-          { x: 104, y: 246, label: "凯悦" },
-          { x: 226, y: 198, label: "K11 MUSEA" },
-          { x: 395, y: 186, label: "星光大道" },
-          { x: 570, y: 220, label: "天星码头" }
+          { x: 98, y: 256, label: "凯悦" },
+          { x: 196, y: 214, label: "K11 / 晚餐" },
+          { x: 308, y: 188, label: "海港城" },
+          { x: 434, y: 204, label: "星光大道" },
+          { x: 560, y: 226, label: "1881 / 码头" }
         ],
         spots: [
           {
-            name: "K11 MUSEA",
+            name: "K11 MUSEA 或海港城晚餐段",
             image: "https://commons.wikimedia.org/wiki/Special:FilePath/K11_Musea_2020.jpg",
-            description: "它的价值不是单纯购物，而是把晚餐、空调休息和艺术感空间揉在一起。刚完成任务后先来这里过渡，能让节奏从办事模式切到旅行模式。",
-            tags: ["值得去原因：好切换状态", "适合：拍照 + 吃饭", "赶时间：友好", "情侣：友好"]
+            description: "这段的意义不是多逛，而是让办卡和购机之后先坐下来吃一顿像样的晚餐，再从任务模式切换到旅行模式。对情侣来说，这比直接硬走海旁更舒服。",
+            tags: ["值得去原因：从任务切到旅行", "适合：吃饭 + 短拍", "赶时间：友好", "情侣：适合开场"]
           },
           {
-            name: "星光大道",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/2024-12-27_Avenue_of_Stars,_Hong_Kong.jpg",
-            description: "这是尖沙咀最稳定的维港海滨视角，适合黄昏到夜晚慢慢走。拍合照、看海风、看对岸楼群发光，都很直接，不需要再额外找机位。",
+            name: "星光大道与尖沙咀海滨长廊",
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Avenue_of_Stars_2020.jpg",
+            description: "这是 D2 唯一保留的维港主舞台。它负责给你们一段稳定、直给、第一次来香港也不会出错的夜景散步，但只放在任务完成后做收尾，不提前抢 D3 的经典观光戏份。",
             tags: ["值得去原因：维港夜景稳定", "适合：散步 + 合照", "赶时间：友好", "情侣：很适合"]
           },
           {
-            name: "天星码头",
+            name: "1881 Heritage / 天星码头外围",
             image: "https://commons.wikimedia.org/wiki/Special:FilePath/Tsim_Sha_Tsui_Star_Ferry_Pier.jpg",
-            description: "适合把这条线收尾在这里。你们可以看现场体力决定要不要短暂坐船过海，但默认建议不再加长，保持轻盈结束感。",
-            tags: ["值得去原因：老香港感", "适合：拍照", "赶时间：友好", "情侣：适合收尾"]
+            description: "这段更像是尾声。1881 适合补一组建筑感合照，天星码头外围适合看看夜色和收工前的港味，但默认不再坐船过海，避免把 D3 的跨海体验提前用掉。",
+            tags: ["值得去原因：夜景收尾完整", "适合：拍照", "赶时间：可短停", "情侣：适合结束前放慢"]
           }
         ],
         food: [
           {
             title: "午餐 / 快吃",
-            detail: "寄存行李并办卡后，优先 K11、河内道、金巴利道附近快吃，目标是 40 分钟内结束，不让下午购机被餐厅排队拖慢。"
+            detail: "寄存行李并办卡后，优先在凯悦、K11、河内道附近快吃，控制在 40 分钟左右，把下午完整留给购机。"
           },
           {
-            title: "晚餐 / 边看景边吃",
-            detail: "这条线最适合把晚餐放在海旁或商场景观位，吃完直接接星光大道。若购机太耗时，就降低餐厅仪式感，换成靠近海旁的稳妥选择。"
+            title: "晚餐 / 海景前先坐下",
+            detail: "D2 最适合把正经晚餐放在 K11 或海港城段。先补足体力，再走海旁，体验会比边饿边赶路稳定很多。"
           },
           {
-            title: "甜品 / 自由加点",
-            detail: "如果 20:30 前体力还行，可在尖沙咀海旁附近补一个甜品；如果已经累，就把“海景散步”当收尾，不必为了甜品再走第二圈。"
+            title: "甜品 / 回酒店前补一口",
+            detail: "若体力还行，可在海旁回酒店路上补甜品或饮品；若购机拖时，就把甜品删掉，直接保留夜景散步。"
           }
         ]
       },
-      harbourcity: {
-        group: "d2",
-        kicker: "D2 晚上 / 购物加码",
-        title: "路线 C｜海港城购物夜景线",
-        subtitle: "适合 2026-03-20 买完相机后仍有余力的情况。观光和商场逛街一起做，但更容易拖时。",
-        gradient: "linear-gradient(135deg, #8d2b39, #d05f71)",
-        color: "#ba475a",
-        summary: "这条线适合“D2 下午购机进展顺利，而且你们还想顺手逛海港城 / 广东道”的情况。优点是购物和夜景能接在一起，缺点是最容易逛久，必须主动控制停留，否则会把晚餐和休息都拖晚。",
-        tags: ["适用日期：D2", "适用时段：16:30 - 21:00", "风格：购物 + 夜景", "赶时间友好：中", "情侣适配：中高"],
-        cardTags: ["适合顺手购物", "逛街风险高", "海港城优先"],
-        mapNote: "这是一条以海港城与广东道为轴的夜间动线，重点提醒你们控制购物停留时间。",
-        mapLink: "https://www.google.com/maps/dir/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/Ocean+Centre,+Harbour+City/1881+Heritage/Tsim+Sha+Tsui+Star+Ferry+Pier/Avenue+of+Stars/",
-        mapPoints: [
-          { x: 108, y: 258, label: "凯悦" },
-          { x: 252, y: 216, label: "海港城" },
-          { x: 360, y: 182, label: "1881" },
-          { x: 476, y: 202, label: "天星码头" },
-          { x: 602, y: 256, label: "星光大道" }
-        ],
-        spots: [
-          {
-            name: "海港城 / 广东道",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ocean_Centre_Hong_Kong.jpg",
-            description: "它最大的价值是把品牌店和数码店密度拉满，适合购机后顺带补买配件、护肤品或手信。但它并不适合没有时间上限的人，逛太久会直接稀释夜景时段。",
-            tags: ["值得去原因：购物密度高", "适合：逛街", "赶时间：一般", "情侣：看兴趣"]
-          },
-          {
-            name: "1881 Heritage",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/1881_Heritage,_Hong_Kong.JPG",
-            description: "这是一个很适合顺路拍照 15 至 20 分钟的夜景点。建筑辨识度高，但不值得为了它额外改线，所以应该永远附着在海港城线里，而不是反过来。",
-            tags: ["值得去原因：建筑辨识度高", "适合：拍照", "赶时间：可短停", "情侣：适合合照"]
-          },
-          {
-            name: "星光大道",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Avenue_of_Stars_2020.jpg",
-            description: "把夜景终点留在这里比一开始就来更合理。先逛街，再把最稳定的海景留到最后，结束感会更完整，也更容易决定什么时候收工回酒店。",
-            tags: ["值得去原因：夜景保底", "适合：散步", "赶时间：友好", "情侣：很适合"]
-          }
-        ],
-        food: [
-          {
-            title: "午餐 / 任务前补能量",
-            detail: "如果你们决定下午先扫门店，午餐仍建议放在凯悦或 K11 周边，不要在海港城先排队吃饭，否则会把购机开局拖得太迟。"
-          },
-          {
-            title: "晚餐 / 逛街中段",
-            detail: "最适合把晚餐夹在海港城和 1881 之间，吃完再决定是继续购物，还是立刻去海旁。这样不容易因为饿到临场乱选店。"
-          },
-          {
-            title: "返酒店前补给",
-            detail: "如果这条线用了太多脚力，最后只适合在回凯悦路上快拿饮品或甜品，不建议再坐下开第二顿。"
-          }
-        ]
-      },
-      westk: {
+      centralPeak: {
         group: "d3",
         kicker: "D3 / 默认推荐",
-        title: "路线 B｜西九艺术线",
-        subtitle: "适合 2026-03-21 上午。最轻松、最稳、离返程站最近，是返程日前半天的默认选项。",
-        gradient: "linear-gradient(135deg, #9a651e, #d89b3c)",
-        color: "#c3862b",
-        summary: "如果只选一条 D3 路线，这条应该排第一。它让观光、拍照、返程三件事自然兼容，且离西九龙站近，到了下午也不会觉得自己离返程链路太远。适合不想再做复杂换乘的情侣路线。",
-        tags: ["适用日期：D3", "适用时段：09:20 - 11:40", "风格：海边慢走", "赶时间友好：最高", "情侣适配：高"],
-        cardTags: ["返程最稳", "海风草地", "移动最少"],
-        mapNote: "这条线的核心是“上午看海，下午轻松回站”，因此特意把西九龙站放进同一幅示意图里。",
-        mapLink: "https://www.google.com/maps/dir/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/Hong+Kong+West+Kowloon+Station/M%2B/Art+Park,+West+Kowloon+Culture+District/",
+        title: "路线 2｜中环 + 山顶经典首访线",
+        subtitle: "适合 2026-03-21 上午。第一次来香港最值得补的天际线和山顶体验集中在这条线上，但必须上午早出发、严格控时。",
+        gradient: "linear-gradient(135deg, #8a5b15, #d19a39)",
+        color: "#bd8127",
+        summary: "这条线把 D3 真正变成“第一次来香港”的经典半日游。你们从尖沙咀出发过海去中环，直接衔接 Peak Tram 上山，在凌霄阁或山顶观景区看最有记忆点的城市全景，然后尽快回尖沙咀午餐、拿行李、去西九龙。它和 D2 的最大区别是：D2 看海旁夜景，D3 看港岛与山顶视角。",
+        tags: ["适用日期：D3", "适用时段：09:10 - 12:00", "跨海：是", "赶时间友好：中", "情侣适配：高"],
+        cardTags: ["第一次来最经典", "跨海 + 上山", "必须早出发"],
+        mapNote: "示意图强调“尖沙咀出发，过海上山，再尽快回尖沙咀”的压缩节奏，不扩展到半山或大馆。",
+        mapLink: "https://www.google.com/maps/dir/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/Central+Station/Peak+Tram+Lower+Terminus/The+Peak+Tower/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/Hong+Kong+West+Kowloon+Station/",
         mapPoints: [
-          { x: 118, y: 278, label: "凯悦" },
-          { x: 228, y: 212, label: "西九龙站" },
-          { x: 382, y: 164, label: "M+" },
-          { x: 544, y: 202, label: "艺术公园" },
-          { x: 626, y: 278, label: "海滨草地" }
+          { x: 96, y: 284, label: "凯悦" },
+          { x: 232, y: 224, label: "中环" },
+          { x: 356, y: 178, label: "缆车总站" },
+          { x: 498, y: 128, label: "山顶" },
+          { x: 618, y: 240, label: "回尖沙咀" }
         ],
         spots: [
           {
-            name: "香港西九龙站外部步道",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/West_Kowloon_Cultural_District_201801.jpg",
-            description: "这不是无聊的“先路过车站”，而是把返程节点提前纳入路线。上午先经过这里，下午心理上会更有底，因为你已经知道回站链路长什么样。",
-            tags: ["值得去原因：返程安心", "适合：快看快走", "赶时间：很友好", "情侣：中性"]
+            name: "中环与花园道 Peak Tram 总站",
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Peak_Tram_Hong_Kong_2022.jpg",
+            description: "中环在这条线上不是慢逛目的地，而是经典路线的起跑点。根据 The Peak 官方信息，Peak Tram Lower Terminus 位于中环花园道 33 号，离 Central Station 步行可达，适合做一条压缩但高记忆点的首访路线。",
+            tags: ["值得去原因：经典线起点", "适合：快走 + 拍城市感", "赶时间：中等", "情侣：适合有仪式感开场"]
           },
           {
-            name: "M+ 外围与海滨",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/M%2B,_West_Kowloon_Cultural_District_(Hong_Kong).jpg",
-            description: "就算不进馆，这里也有很强的建筑感和开阔视野。比起尖沙咀海旁，它更像是留白式散步，很适合返程日前保留轻松心情。",
-            tags: ["值得去原因：建筑和海景兼得", "适合：拍建筑 + 散步", "赶时间：友好", "情侣：适合安静散步"]
+            name: "Peak Tram 与凌霄阁 / 山顶观景",
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Hong_Kong_skyline_from_Victoria_Peak.jpg",
+            description: "山顶的价值在于它把香港的密度、海港和高楼关系一次讲清楚。对第一次来香港的人来说，它比再走一次海旁更有“我真的来过香港”的辨识度，但也最需要你们控时，不适合顺手扩展别的港岛点位。",
+            tags: ["值得去原因：最经典天际线", "适合：拍照 + 俯瞰", "赶时间：一般", "情侣：非常适合"]
           },
           {
-            name: "艺术公园草地",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/West_Kowloon_Cultural_District_Art_Park_2021.jpg",
-            description: "如果 D3 只想像在城市里放空一下，这里比硬塞商场更对味。海风、草地、楼群同框，适合坐一会儿、拍拍人像，然后主动结束。",
-            tags: ["值得去原因：最松弛", "适合：散步 + 休息", "赶时间：很友好", "情侣：非常适合"]
+            name: "回尖沙咀午餐与取行李",
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Hyatt_Regency_Hong_Kong_Tsim_Sha_Tsui.jpg",
+            description: "这不是附带步骤，而是整条线成立的关键。山顶线只要中午后还留在港岛，就会挤压返程缓冲，所以最佳做法是果断回尖沙咀吃午餐、取行李，再向西九龙收束。",
+            tags: ["值得去原因：保证返程节奏", "适合：快吃 + 收尾", "赶时间：必须", "情侣：中性但必要"]
           }
         ],
         food: [
           {
-            title: "早餐 / 凯悦附近",
-            detail: "D3 早饭建议就近解决，不追求打卡店。越早完成早餐，西九这条线就越像一个从容的半日假期。"
+            title: "早餐 / 尖沙咀快吃",
+            detail: "这条线不适合慢 brunch。早餐最好在凯悦附近快速解决，把 09:10 左右的出发窗留出来。"
           },
           {
-            title: "咖啡 / 轻食",
-            detail: "如果上午想坐一会儿，最适合在西九文化区内部找咖啡或轻食，不要在这里吃太正式的午餐，否则回尖沙咀取行李会被推迟。"
+            title: "中途补给 / 山顶轻食",
+            detail: "如果上山后想休息，只建议做饮品或轻食，不建议在山顶坐一顿正式午餐，否则回尖沙咀的节奏会被拉散。"
           },
           {
-            title: "午餐 / 返程日前控节奏",
-            detail: "正餐仍建议回尖沙咀吃。这样午餐、回酒店拿行李、15:20 至 15:40 出发去西九龙的节奏最完整。"
+            title: "午餐 / 回尖沙咀再吃",
+            detail: "正餐应放在回尖沙咀之后。这样 13:10 - 14:00 取行李、15:20 - 15:40 出发去西九龙的链路最稳。"
           }
         ]
       },
-      centralwalk: {
+      mongkokStreet: {
         group: "d3",
-        kicker: "D3 / 小红书感备选",
-        title: "路线 D｜中环城市漫步线",
-        subtitle: "适合 2026-03-21 上午。更出片、更有坡道和街景层次，但比西九更考验时间控制。",
-        gradient: "linear-gradient(135deg, #4651a7, #7a5bd1)",
-        color: "#6258c4",
-        summary: "这条线是根据公开可检索的小红书热门香港漫步思路做的压缩版，把中环街市、半山扶梯和大馆收拢成一条上午可执行的 citywalk。它比西九更有街道层次和镜头感，但也更容易因为拍照、咖啡和上坡停留而超时。",
-        tags: ["适用日期：D3", "适用时段：09:20 - 11:40", "风格：citywalk", "赶时间友好：中", "情侣适配：高"],
-        cardTags: ["更出片", "更像 citywalk", "必须控时"],
-        mapNote: "示意图强调“天星过海后一路往上走”的感觉。只建议做压缩版，不建议临场再扩到上环、西营盘。",
-        mapLink: "https://www.google.com/maps/dir/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/Tsim+Sha+Tsui+Star+Ferry+Pier/Central+Market/Central-Mid-Levels+Escalators/Tai+Kwun/",
+        kicker: "D3 / 港味备选",
+        title: "路线 3｜旺角 + 星际城市 + 油麻地警署线",
+        subtitle: "适合 2026-03-21 上午。它不追山顶全景，而是把小红书常见的港味街头、数码商场和街区感压缩成一条九龙半日线。",
+        gradient: "linear-gradient(135deg, #8f3044, #d66254)",
+        color: "#bf4c57",
+        summary: "这条线适合你们更想要街头港味，而不是经典俯瞰。路线从旺角出发，走西洋菜南街、女人街外围与星际城市，再下切到油麻地警署外景和佐敦 / 庙街午餐，整个上午都留在九龙，不再碰尖沙咀海旁和维港夜景。这样 D2 看海、D3 看街区，分工很清楚。",
+        tags: ["适用日期：D3", "适用时段：09:20 - 11:50", "跨海：否", "赶时间友好：中高", "情侣适配：中高"],
+        cardTags: ["小红书港味更强", "不重复维港", "全程九龙"],
+        mapNote: "示意图强调旺角向南扫到油麻地的街区动线，重点是街头层次，不是购物面积。",
+        mapLink: "https://www.google.com/maps/dir/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/Sino+Centre+Mong+Kok/Sim+City/Yau+Ma+Tei+Police+Station/Jordan,+Hong+Kong/Hyatt+Regency+Hong+Kong,+Tsim+Sha+Tsui/Hong+Kong+West+Kowloon+Station/",
         mapPoints: [
-          { x: 110, y: 284, label: "凯悦" },
-          { x: 196, y: 232, label: "天星码头" },
-          { x: 344, y: 178, label: "中环街市" },
-          { x: 494, y: 146, label: "半山扶梯" },
-          { x: 614, y: 194, label: "大馆" }
+          { x: 110, y: 294, label: "凯悦" },
+          { x: 248, y: 224, label: "旺角" },
+          { x: 362, y: 194, label: "星际城市" },
+          { x: 494, y: 214, label: "油麻地警署" },
+          { x: 612, y: 264, label: "佐敦午餐" }
         ],
         spots: [
           {
-            name: "天星小轮过海",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Star_Ferry_and_Hong_Kong_skyline_2014.jpg",
-            description: "它是这条 citywalk 的情绪开场。用最经典的方式过海，整条线会更像“香港早晨散步”而不是单纯打卡清单。",
-            tags: ["值得去原因：仪式感强", "适合：拍海景", "赶时间：中等", "情侣：很适合"]
+            name: "旺角西洋菜南街 / 女人街外围",
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mong_Kok_at_night_2019.jpg",
+            description: "旺角的价值在于密度和街头感。它不是最经典的天际线，但如果你们更想看霓虹招牌、窄街、路牌和人流，这一段会比去山顶更像小红书常见的“港风一日游”。",
+            tags: ["值得去原因：街头港味最强", "适合：扫街 + 拍照", "赶时间：中等", "情侣：适合边走边拍"]
           },
           {
-            name: "中环街市与半山扶梯",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Central_Market%2C_Hong_Kong_2021.jpg",
-            description: "这段是最有 citywalk 质感的核心：旧楼翻新、坡道、扶梯、咖啡店和窄街同框。适合边走边拍，但一旦停太久，就会影响中午回尖沙咀的节奏。",
-            tags: ["值得去原因：街景层次丰富", "适合：拍照 + 漫步", "赶时间：一般", "情侣：适合慢逛"]
+            name: "星际城市",
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sino_Centre_Mong_Kok_2023.jpg",
+            description: "星际城市适合接在旺角主街之后，给这条线补一段典型的香港数码商场气质。它不像海港城那样偏任务型，更像是街区氛围里顺手看的一个节点。",
+            tags: ["值得去原因：数码商场辨识度高", "适合：短逛 + 看橱窗", "赶时间：可短停", "情侣：看兴趣"]
           },
           {
-            name: "大馆",
-            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Tai_Kwun_Centre_for_Heritage_and_Arts_2018.jpg",
-            description: "大馆的历史建筑群很适合做这条线的收尾，视觉辨识度强，也比单纯商场更有记忆点。但最好把停留控制在 20 分钟左右，别让它变成半日深逛。",
-            tags: ["值得去原因：建筑故事强", "适合：拍照", "赶时间：可短停", "情侣：适合合照"]
+            name: "油麻地警署与佐敦 / 庙街收尾",
+            image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yau_Ma_Tei_Police_Station_2018.jpg",
+            description: "油麻地警署外景和佐敦一带会让这条线从“热闹旺角”过渡到更老派的九龙街区。这里适合收一顿午餐，再直接回尖沙咀拿行李，不需要再补海景。",
+            tags: ["值得去原因：老九龙氛围完整", "适合：拍街景 + 吃饭", "赶时间：友好", "情侣：适合收尾"]
           }
         ],
         food: [
           {
-            title: "Brunch / 慢吃但不拖",
-            detail: "这条线最适合把早餐升级成一顿偏 brunch 的慢吃，但仍然建议把用餐控制在 45 分钟以内，避免整条 citywalk 变成“吃完已经中午”。"
+            title: "早餐 / 路上简餐",
+            detail: "这条线可以在去旺角路上或到站后解决简单早餐，不需要刻意找网红早午餐店，重点是把街区步行时间留出来。"
           },
           {
-            title: "中途咖啡 / 拍照休息",
-            detail: "半山扶梯和大馆附近很容易想停下来喝咖啡。可以停，但只能选一个点，不要早餐、咖啡、午餐三段都拉满。"
+            title: "午餐 / 佐敦或尖沙咀收口",
+            detail: "最合适的是在油麻地往佐敦收束时吃午餐；如果拍得太上头，就直接回尖沙咀再吃，不要临时北上加点。"
           },
           {
-            title: "午餐 / 回尖沙咀补正餐",
-            detail: "这条线不适合在中环吃正午大餐。最好的节奏仍然是回尖沙咀午餐，再回酒店拿行李，返程压力最低。"
+            title: "返程日前控节奏",
+            detail: "这条线不适合再加铜锣湾或尖沙咀海旁。最稳的做法是街区午餐结束后直接回酒店拿行李，把最后的体力留给返程。"
           }
         ]
       }
@@ -1568,7 +1671,7 @@
     renderCards();
     routeGridD2.addEventListener("click", handleRouteClick);
     routeGridD3.addEventListener("click", handleRouteClick);
-    setActiveRoute("harbour");
+    setActiveRoute("tsimshatsuiNight");
   </script>
 </body>
 </html>
