@@ -203,6 +203,24 @@
       margin-top: 12px;
     }
 
+    .route-group + .route-group {
+      margin-top: 16px;
+    }
+
+    .route-group-title {
+      margin: 14px 0 0;
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .route-group-desc {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
     .route-card {
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -425,7 +443,7 @@
         <ul class="timeline">
           <li><div class="time">08:20-09:10</div><p class="task">早餐：尖沙咀茶餐厅或凯悦附近早餐店。建议不要吃太慢，把上午完整留给观光。</p></li>
           <li><div class="time">09:20-11:40</div><p class="task"><strong>推荐主线</strong>：走“路线 B｜西九艺术线”，打车/地铁去西九文化区，看海滨、M+ 外围和草地步道。这条最适合返程日，节奏最稳。</p></li>
-          <li><div class="time">09:20-11:40</div><p class="task"><strong>备选</strong>：如果你们更想拍经典香港照片，再走“路线 A｜经典维港线”的精简版，只走星光大道和天星码头，不建议再坐船去中环深逛。</p></li>
+          <li><div class="time">09:20-11:40</div><p class="task"><strong>新备选</strong>：走“路线 D｜中环城市漫步线”，天星小轮到中环后串联中环街市、半山扶梯、大馆一带。这条更偏小红书常见 citywalk 风格，但要控制停留时间。</p></li>
           <li><div class="time">12:00-13:10</div><p class="task">回尖沙咀午餐。若前一天没买齐相机配件，可顺路补充电池、存储卡或相机包。</p></li>
           <li><div class="time">13:10-14:00</div><p class="task">回酒店取行李，检查证件、相机、借记卡回执是否齐全，并预留一点机动时间。</p></li>
           <li><div class="time">14:00-15:15</div><p class="task">如果体力还可以，可在 K11 / 尖沙咀海旁 / 酒店附近做最后一段轻松散步或下午茶，不建议再去远处新地点。</p></li>
@@ -447,8 +465,17 @@
 
       <section class="card route-decision">
         <h2>香港线路决策区</h2>
-        <p class="meta">下面 3 条线路都以尖沙咀凯悦为起点。路线 A、C 更适合 3月20日傍晚到晚上；路线 B 更适合 3月21日上午返程前。</p>
-        <div id="route-grid" class="route-grid"></div>
+        <p class="meta">我把路线拆成两个场景：`D2 晚上` 和 `D3 返程前`。点任一路线卡，地图与右侧景点说明会联动切换。</p>
+        <section class="route-group">
+          <h3 class="route-group-title">D2 晚上适合的路线</h3>
+          <p class="route-group-desc">适合 3月20日买完相机、办完入住后的黄昏到晚上，重点是夜景、散步和晚餐。</p>
+          <div id="route-grid-d2" class="route-grid"></div>
+        </section>
+        <section class="route-group">
+          <h3 class="route-group-title">D3 适合的路线</h3>
+          <p class="route-group-desc">适合 3月21日返程前的上午时段，默认优先不跨太远，确保 17:30 西九龙返程不赶。</p>
+          <div id="route-grid-d3" class="route-grid"></div>
+        </section>
         <div class="route-layout">
           <div class="map-panel">
             <div id="map"></div>
@@ -461,7 +488,7 @@
           <div class="route-side">
             <section class="card" style="padding: 12px;">
               <h2 style="margin-bottom: 6px;">为什么这样设计</h2>
-              <p class="decision-note">你们这次不是纯观光，而是“办卡 + 购机 + 一点点游玩”。所以我把线路拆成三类：最稳妥、最好拍、最好逛。这样你们不用只看名字，而是可以直接判断哪条更适合当天体力和任务完成度。</p>
+              <p class="decision-note">你们这次不是纯观光，而是“办卡 + 购机 + 一点点游玩”。所以我把线路拆成两个使用场景：D2 晚上优先夜景和晚餐，D3 上午优先返程稳定性。新加的 D3 城市漫步线来自公开网页里能检索到的小红书 citywalk 热点方向，再按你们 17:30 返程压缩成可执行版本。</p>
             </section>
             <section class="card" style="padding: 12px;">
               <h2 style="margin-bottom: 6px;">景点简介</h2>
@@ -498,6 +525,10 @@
           <li>FASE 销售网点（含 Fortress 尖沙咀门店）：<a href="https://www.fase.com.hk/en/pages/sales-outlet" target="_blank" rel="noopener">https://www.fase.com.hk/en/pages/sales-outlet</a></li>
           <li>香港旅游发展局 - 星光大道：<a href="https://www.discoverhongkong.com/eng/explore/great-outdoor/avenue-of-stars.html" target="_blank" rel="noopener">官方景点页</a></li>
           <li>香港旅游发展局 - 西九文化区：<a href="https://www.discoverhongkong.com/eng/explore/arts/west-kowloon-cultural-district.html" target="_blank" rel="noopener">官方景点页</a></li>
+          <li>星岛环球网 - 小红书热门香港 citywalk 点位（中环/西营盘/坚尼地城）：<a href="https://www.stnn.cc/c/2024-10-02/3924491.shtml" target="_blank" rel="noopener">报道链接</a></li>
+          <li>星岛日报 - 小红书 x 旅发局“香港漫步指南”：<a href="https://std.stheadline.com/sc/realtime/article/1954475/%E5%8D%B3%E6%99%82-%E6%B8%AF%E8%81%9E-%E5%B0%8F%E7%B4%85%E6%9B%B8%E5%A4%A5%E6%97%85%E7%99%BC%E5%B1%80%E6%8E%A85%E6%A2%9D-%E9%A6%99%E6%B8%AF%E6%BC%AB%E6%AD%A5%E6%8C%87%E5%8D%97-%E8%B7%AF%E7%B7%9A-%E6%B4%BB%E5%8B%95%E6%9B%9D%E5%85%89%E5%BA%A6%E9%80%BE2100%E8%90%AC" target="_blank" rel="noopener">报道链接</a></li>
+          <li>MTR - Central / Sheung Wan 周边步行发现：<a href="https://www.mtr.com.hk/en/customer/main/discover-cen-shw.html" target="_blank" rel="noopener">官方页面</a></li>
+          <li>Tai Kwun 官方访问信息：<a href="https://www.taikwun.hk/visit" target="_blank" rel="noopener">官方页面</a></li>
           <li>小红书搜索入口（出发前再刷当天笔记）：<a href="https://www.xiaohongshu.com/search_result?keyword=%E9%A6%99%E6%B8%AF%20%E5%B0%96%E6%B2%99%E5%92%80%20%E4%B8%80%E6%97%A5%E6%B8%B8" target="_blank" rel="noopener">尖沙咀一日游</a></li>
         </ul>
       </section>
@@ -538,6 +569,7 @@
     const routeData = {
       harbour: {
         title: '路线 A｜经典维港线',
+        group: 'd2',
         subtitle: '适合 3月20日傍晚到晚上｜最稳妥，适合第一次来香港或想拍海景夜景',
         color: '#0f766e',
         hero: 'linear-gradient(135deg, #0f766e, #0ea5a4)',
@@ -601,6 +633,7 @@
       },
       westk: {
         title: '路线 B｜西九艺术线',
+        group: 'd3',
         subtitle: '适合 3月21日上午｜更轻松，适合返程前半日或不想赶天星小轮',
         color: '#b45309',
         hero: 'linear-gradient(135deg, #b45309, #f59e0b)',
@@ -655,6 +688,7 @@
       },
       harbourcity: {
         title: '路线 C｜购物夜景线',
+        group: 'd2',
         subtitle: '适合 3月20日傍晚到晚上｜更像小红书路线，适合买完相机后顺便逛街吃饭',
         color: '#be123c',
         hero: 'linear-gradient(135deg, #be123c, #fb7185)',
@@ -715,18 +749,82 @@
             description: '把最稳定的夜景留在最后，逛完街之后再过来拍照，结束感会比较完整。'
           }
         ]
+      },
+      centralwalk: {
+        title: '路线 D｜中环城市漫步线',
+        group: 'd3',
+        subtitle: '适合 3月21日上午｜偏小红书 citywalk 风格，适合喜欢街景、坡道和老香港混现代感',
+        color: '#7c3aed',
+        hero: 'linear-gradient(135deg, #7c3aed, #2563eb)',
+        decision: '我检索到公开网页里提到的小红书热门香港 citywalk 方向，多集中在中环、上环、西营盘一线。考虑你们 17:30 返程，这里做成压缩版中环漫步线，比去更远的西营盘或坚尼地城更稳。',
+        stats: ['小红书感强', '拍照出片', '返程可控'],
+        food: [
+          {
+            name: '中环街市 / 苏豪一带咖啡店',
+            detail: '适合把这条线做成 brunch 式慢逛，走走停停不会太累。'
+          },
+          {
+            name: '大馆附近轻食或咖啡',
+            detail: '如果你们更重视拍照和散步，这里适合中途短暂停一下，不建议吃太久。'
+          },
+          {
+            name: '回尖沙咀后的午餐',
+            detail: '这条线最好在 12 点前开始回程，中午仍然回尖沙咀吃正餐，再去酒店拿行李。'
+          }
+        ],
+        path: [
+          [22.2984, 114.1748],
+          [22.2932, 114.1684],
+          [22.2849, 114.1542],
+          [22.2838, 114.1548],
+          [22.2819, 114.1549]
+        ],
+        spots: [
+          {
+            name: '天星码头',
+            lat: 22.2932,
+            lng: 114.1684,
+            image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Tsim_Sha_Tsui_Star_Ferry_Pier.jpg',
+            label: '过海起点',
+            description: '如果想把返程日前的上午走得更像香港 citywalk，从天星小轮过海是最有氛围的开场。'
+          },
+          {
+            name: '中环街市',
+            lat: 22.2849,
+            lng: 114.1542,
+            image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Central_Market%2C_Hong_Kong_2021.jpg',
+            label: '复古翻新',
+            description: '中环街市是近年很常见的小红书打卡点，老建筑更新后很适合边走边拍，也方便短暂停留。'
+          },
+          {
+            name: '半山扶梯一带',
+            lat: 22.2838,
+            lng: 114.1548,
+            image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Central-Mid-Levels_Escalators_2019.jpg',
+            label: '坡道街景',
+            description: '这一带最有中环的层次感：坡道、扶梯、窄街和咖啡馆混在一起，很符合 citywalk 的节奏。'
+          },
+          {
+            name: '大馆',
+            lat: 22.2819,
+            lng: 114.1549,
+            image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Tai_Kwun_Centre_for_Heritage_and_Arts_2018.jpg',
+            label: '历史建筑群',
+            description: '大馆把旧警署和监狱建筑改造成了文化空间，视觉辨识度很强，停留 20 分钟左右就足够。'
+          }
+        ]
       }
     };
 
-    const routeGrid = document.getElementById('route-grid');
+    const routeGridD2 = document.getElementById('route-grid-d2');
+    const routeGridD3 = document.getElementById('route-grid-d3');
     const spotList = document.getElementById('spot-list');
     const foodList = document.getElementById('food-list');
     const routeSummary = document.getElementById('route-summary');
     const routeLayers = {};
     const routeMarkers = {};
 
-    const renderRouteCards = () => {
-      routeGrid.innerHTML = Object.entries(routeData).map(([key, route]) => `
+    const createRouteCard = ([key, route]) => `
         <article class="route-card" data-route="${key}" style="--route-color:${route.color}">
           <div class="route-hero" style="background:${route.hero}">
             <h3>${route.title}</h3>
@@ -737,7 +835,18 @@
             <p class="tiny">${route.decision}</p>
           </div>
         </article>
-      `).join('');
+      `;
+
+    const renderRouteCards = () => {
+      routeGridD2.innerHTML = Object.entries(routeData)
+        .filter(([, route]) => route.group === 'd2')
+        .map(createRouteCard)
+        .join('');
+
+      routeGridD3.innerHTML = Object.entries(routeData)
+        .filter(([, route]) => route.group === 'd3')
+        .map(createRouteCard)
+        .join('');
     };
 
     const buildRouteLayers = () => {
@@ -805,11 +914,14 @@
     buildRouteLayers();
     setActiveRoute('harbour');
 
-    routeGrid.addEventListener('click', (event) => {
+    const handleRouteClick = (event) => {
       const card = event.target.closest('.route-card');
       if (!card) return;
       setActiveRoute(card.dataset.route);
-    });
+    };
+
+    routeGridD2.addEventListener('click', handleRouteClick);
+    routeGridD3.addEventListener('click', handleRouteClick);
   </script>
 </body>
 </html>
