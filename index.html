@@ -421,13 +421,15 @@
 
       <section class="card">
         <h2>D3｜3月21日（周六）香港半日游 → 广州</h2>
-        <p class="meta">住尖沙咀凯悦的优势：早上可以先玩一段经典路线，再回酒店拿行李返程</p>
+        <p class="meta">按 17:30 西九龙返程重排后，这天最适合“上午观光 + 中午回尖沙咀吃饭 + 下午从容返站”</p>
         <ul class="timeline">
-          <li><div class="time">08:30-09:20</div><p class="task">早餐：尖沙咀茶餐厅或凯悦附近早餐店，吃完直接开始半日游。</p></li>
-          <li><div class="time">09:30-12:00</div><p class="task"><strong>方案A（最稳妥）</strong>：星光大道 → 天星码头 → 天星小轮到中环 → 中环海滨拍照后原路返回。</p></li>
-          <li><div class="time">09:30-12:00</div><p class="task"><strong>方案B（更松弛）</strong>：打车/地铁去西九文化区，看海滨与 M+ 外围，再回尖沙咀。</p></li>
-          <li><div class="time">12:00-13:00</div><p class="task">回尖沙咀午餐。若前一天没买齐相机配件，可顺路补充电池/存储卡/包。</p></li>
-          <li><div class="time">13:00-13:40</div><p class="task">回酒店取行李，检查证件、相机、借记卡回执是否齐全。</p></li>
+          <li><div class="time">08:20-09:10</div><p class="task">早餐：尖沙咀茶餐厅或凯悦附近早餐店。建议不要吃太慢，把上午完整留给观光。</p></li>
+          <li><div class="time">09:20-11:40</div><p class="task"><strong>推荐主线</strong>：走“路线 B｜西九艺术线”，打车/地铁去西九文化区，看海滨、M+ 外围和草地步道。这条最适合返程日，节奏最稳。</p></li>
+          <li><div class="time">09:20-11:40</div><p class="task"><strong>备选</strong>：如果你们更想拍经典香港照片，再走“路线 A｜经典维港线”的精简版，只走星光大道和天星码头，不建议再坐船去中环深逛。</p></li>
+          <li><div class="time">12:00-13:10</div><p class="task">回尖沙咀午餐。若前一天没买齐相机配件，可顺路补充电池、存储卡或相机包。</p></li>
+          <li><div class="time">13:10-14:00</div><p class="task">回酒店取行李，检查证件、相机、借记卡回执是否齐全，并预留一点机动时间。</p></li>
+          <li><div class="time">14:00-15:15</div><p class="task">如果体力还可以，可在 K11 / 尖沙咀海旁 / 酒店附近做最后一段轻松散步或下午茶，不建议再去远处新地点。</p></li>
+          <li><div class="time">15:20-15:40</div><p class="task">从尖沙咀凯悦出发前往香港西九龙站。</p></li>
           <li><div class="time">16:00前后</div><p class="task">建议最晚 16:00 抵达香港西九龙站；你们的返程车次是 <strong>17:30 从西九龙出发</strong>，周六最好预留足够排队和安检时间。</p></li>
         </ul>
         <span class="tag">节奏：从容收尾</span><span class="tag">不建议再跨海远跑</span>
@@ -445,7 +447,7 @@
 
       <section class="card route-decision">
         <h2>香港线路决策区</h2>
-        <p class="meta">下面 3 条线路都以尖沙咀凯悦为起点，点选路线卡后，地图会切换高亮，并显示每个景点的简要介绍</p>
+        <p class="meta">下面 3 条线路都以尖沙咀凯悦为起点。路线 A、C 更适合 3月20日傍晚到晚上；路线 B 更适合 3月21日上午返程前。</p>
         <div id="route-grid" class="route-grid"></div>
         <div class="route-layout">
           <div class="map-panel">
@@ -536,7 +538,7 @@
     const routeData = {
       harbour: {
         title: '路线 A｜经典维港线',
-        subtitle: '最稳妥，适合第一次来香港或想拍海景夜景',
+        subtitle: '适合 3月20日傍晚到晚上｜最稳妥，适合第一次来香港或想拍海景夜景',
         color: '#0f766e',
         hero: 'linear-gradient(135deg, #0f766e, #0ea5a4)',
         decision: '如果你们线上办卡和买相机都顺利完成，这条是最值得优先选的晚间路线。步行多、拍照好看、回酒店也最方便。',
@@ -599,7 +601,7 @@
       },
       westk: {
         title: '路线 B｜西九艺术线',
-        subtitle: '更轻松，适合返程前半日或不想赶天星小轮',
+        subtitle: '适合 3月21日上午｜更轻松，适合返程前半日或不想赶天星小轮',
         color: '#b45309',
         hero: 'linear-gradient(135deg, #b45309, #f59e0b)',
         decision: '如果你们周五买完相机后只想轻松收尾，或者周六上午只想慢慢看海，这条最合适。移动少，节奏稳定。',
@@ -653,7 +655,7 @@
       },
       harbourcity: {
         title: '路线 C｜购物夜景线',
-        subtitle: '更像小红书路线，适合买完相机后顺便逛街吃饭',
+        subtitle: '适合 3月20日傍晚到晚上｜更像小红书路线，适合买完相机后顺便逛街吃饭',
         color: '#be123c',
         hero: 'linear-gradient(135deg, #be123c, #fb7185)',
         decision: '如果你们想把“海港城、1881、广东道、晚餐”一口气走完，这条最顺，但购物停留时间容易拉长。',
