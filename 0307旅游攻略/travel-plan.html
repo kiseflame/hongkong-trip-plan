@@ -173,6 +173,10 @@
       z-index: 1;
     }
 
+    .hero-grid > * {
+      min-width: 0;
+    }
+
     .eyebrow,
     .chip,
     .meta-pill,
@@ -372,7 +376,6 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .overview-grid.scroll-row,
     .check-grid.scroll-row {
       display: flex;
       gap: 16px;
@@ -392,6 +395,45 @@
 
     .quick strong {
       font-size: 15px;
+    }
+
+    .overview-fold {
+      padding: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 247, 240, 0.96));
+      border: 1px solid rgba(29, 35, 48, 0.08);
+    }
+
+    .overview-fold summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px;
+      font-weight: 800;
+    }
+
+    .overview-fold summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .overview-fold summary::after {
+      content: "+";
+      font-size: 22px;
+      line-height: 1;
+      color: var(--brand-deep);
+      flex: 0 0 auto;
+    }
+
+    .overview-fold[open] summary::after {
+      content: "−";
+    }
+
+    .overview-fold .fold-content {
+      padding-top: 0;
     }
 
     .timeline-grid {
@@ -835,6 +877,10 @@
         gap: 14px;
       }
 
+      .hero-side {
+        grid-template-columns: 1fr;
+      }
+
       .eyebrow,
       .chip,
       .meta-pill,
@@ -879,14 +925,34 @@
         padding-right: 14px;
       }
 
+      .fold-card summary {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        font-size: 14px;
+      }
+
+      .fold-content {
+        padding-bottom: 14px;
+      }
+
+      .fold-content .chips {
+        display: grid;
+        gap: 8px;
+      }
+
+      .fold-content .chips .chip {
+        justify-content: flex-start;
+      }
+
       .hero-stats .stat {
-        min-width: 120px;
-        padding: 12px;
-        border-radius: 14px;
+        min-width: 0;
+        padding: 10px 12px;
+        border-radius: 12px;
+        flex: 1 1 100%;
       }
 
       .stat strong {
-        font-size: 22px;
+        font-size: 18px;
       }
 
       .section-head {
@@ -906,12 +972,25 @@
       .timeline-item {
         grid-template-columns: 1fr;
         gap: 6px;
-        padding-left: 14px;
+        padding-left: 16px;
       }
 
       .timeline {
         gap: 12px;
-        padding-left: 14px;
+        padding-left: 16px;
+      }
+
+      .timeline::before {
+        left: 4px;
+        top: 10px;
+        bottom: 10px;
+      }
+
+      .timeline-item::before {
+        left: -2px;
+        top: 7px;
+        width: 11px;
+        height: 11px;
       }
 
       .timeline-item h4 {
@@ -942,7 +1021,7 @@
         grid-template-columns: 1fr 40px;
         align-items: center;
         gap: 10px;
-        padding: 16px 18px;
+        padding: 14px 16px;
       }
 
       .day-summary .chips {
@@ -974,24 +1053,25 @@
       }
 
       .day-accordion-body {
-        padding: 0 18px 18px;
+        padding: 0 16px 16px;
       }
 
       .route-switch {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
-        width: 100%;
-        padding: 0;
-        background: transparent;
+        display: inline-flex;
+        gap: 8px;
+        width: auto;
+        padding: 4px;
+        background: rgba(29, 35, 48, 0.06);
       }
 
       .route-switch button {
-        width: 100%;
-        text-align: left;
-        padding: 14px 16px;
-        background: rgba(255, 255, 255, 0.9);
+        width: auto;
+        text-align: center;
+        padding: 9px 14px;
+        background: transparent;
         border: 1px solid rgba(29, 35, 48, 0.1);
+        border-radius: 999px;
+        font-size: 13px;
       }
 
       .route-switch button.active {
@@ -999,15 +1079,25 @@
         border-color: rgba(178, 74, 46, 0.22);
       }
 
-      .overview-grid.scroll-row,
       .check-grid.scroll-row {
         padding-bottom: 10px;
       }
 
-      .quick {
-        flex-basis: 74vw;
-        padding: 14px;
+      .overview-grid {
+        gap: 12px;
+      }
+
+      .overview-fold {
         border-radius: 18px;
+      }
+
+      .overview-fold summary {
+        padding: 14px;
+        font-size: 14px;
+      }
+
+      .overview-fold .fold-content {
+        padding: 0 14px 14px;
       }
 
       .quick p {
@@ -1199,19 +1289,25 @@
             <span class="chip">中午后进入返程模式</span>
           </div>
         </div>
-        <div class="overview-grid scroll-row">
-          <article class="quick">
-            <strong>D1 深圳夜间</strong>
-            <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
-          </article>
-          <article class="quick">
-            <strong>D2 尖沙咀任务日</strong>
-            <p>先去酒店寄存行李，再在酒店 WiFi 下处理中银香港线上办卡；下午集中搜索并成交 GR III，晚上只走海旁奖励线。</p>
-          </article>
-          <article class="quick">
-            <strong>D3 纯观光日</strong>
-            <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；如果更想拍港风街头，再切旺角 + 油麻地线。12:00 后开始回收动线。</p>
-          </article>
+        <div class="overview-grid">
+          <details class="overview-fold" open>
+            <summary>D1 深圳夜间</summary>
+            <div class="fold-content">
+              <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
+            </div>
+          </details>
+          <details class="overview-fold">
+            <summary>D2 尖沙咀任务日</summary>
+            <div class="fold-content">
+              <p>先去酒店寄存行李，再在酒店 WiFi 下处理中银香港线上办卡；下午集中搜索并成交 GR III，晚上只走海旁奖励线。</p>
+            </div>
+          </details>
+          <details class="overview-fold">
+            <summary>D3 纯观光日</summary>
+            <div class="fold-content">
+              <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；如果更想拍港风街头，再切旺角 + 油麻地线。12:00 后开始回收动线。</p>
+            </div>
+          </details>
         </div>
       </section>
 
@@ -1387,18 +1483,18 @@
           </summary>
           <div class="day-accordion-body">
           <div class="route-switch" data-route-group="d3">
-            <button type="button" class="active" data-route="classic">默认推荐：中环 + 山顶经典首访线</button>
-            <button type="button" data-route="street">备选：旺角 + 星际城市 + 油麻地警署港味线</button>
+            <button type="button" class="active" data-route="classic">线路一</button>
+            <button type="button" data-route="street">线路二</button>
           </div>
           <div class="route-panel" data-route-panel="classic">
             <div class="route-summary">
-              <h4>第一次来香港，优先把上午留给山顶和港岛天际线</h4>
+              <h4>线路一 · 中环 + 山顶经典首访线</h4>
               <p>凯悦出发后直接过海去中环，走 Peak Tram Lower Terminus、山顶 / 凌霄阁，再回尖沙咀午餐、取行李、去西九龙。它和 D2 的海旁夜景是两种完全不同的观景体验。</p>
             </div>
           </div>
           <div class="route-panel" data-route-panel="street" hidden>
             <div class="route-summary">
-              <h4>如果更想拍港风街头，把上午留给九龙街区</h4>
+              <h4>线路二 · 旺角 + 星际城市 + 油麻地警署港味线</h4>
               <p>凯悦出发后直奔旺角，只走西洋菜南街 / 女人街外围、星际城市、油麻地警署，再在佐敦 / 庙街附近午餐，下午回尖沙咀做一段轻松收尾。全程不跨海，节奏更集中。</p>
             </div>
           </div>
