@@ -397,45 +397,6 @@
       font-size: 15px;
     }
 
-    .overview-fold {
-      padding: 0;
-      overflow: hidden;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 247, 240, 0.96));
-      border: 1px solid rgba(29, 35, 48, 0.08);
-    }
-
-    .overview-fold summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 18px;
-      font-weight: 800;
-    }
-
-    .overview-fold summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .overview-fold summary::after {
-      content: "+";
-      font-size: 22px;
-      line-height: 1;
-      color: var(--brand-deep);
-      flex: 0 0 auto;
-    }
-
-    .overview-fold[open] summary::after {
-      content: "−";
-    }
-
-    .overview-fold .fold-content {
-      padding-top: 0;
-    }
-
     .timeline-grid {
       grid-template-columns: 1fr;
     }
@@ -935,15 +896,6 @@
         padding-bottom: 14px;
       }
 
-      .fold-content .chips {
-        display: grid;
-        gap: 8px;
-      }
-
-      .fold-content .chips .chip {
-        justify-content: flex-start;
-      }
-
       .hero-stats .stat {
         min-width: 0;
         padding: 10px 12px;
@@ -970,27 +922,30 @@
       }
 
       .timeline-item {
-        grid-template-columns: 1fr;
-        gap: 6px;
-        padding-left: 16px;
+        display: block;
+        padding-left: 26px;
       }
 
       .timeline {
         gap: 12px;
-        padding-left: 16px;
+        padding-left: 0;
       }
 
       .timeline::before {
-        left: 4px;
+        left: 7px;
         top: 10px;
         bottom: 10px;
       }
 
       .timeline-item::before {
-        left: -2px;
-        top: 7px;
+        left: 1px;
+        top: 8px;
         width: 11px;
         height: 11px;
+      }
+
+      .time {
+        margin-bottom: 6px;
       }
 
       .timeline-item h4 {
@@ -1084,20 +1039,14 @@
       }
 
       .overview-grid {
+        grid-template-columns: 1fr;
         gap: 12px;
       }
 
-      .overview-fold {
-        border-radius: 18px;
-      }
-
-      .overview-fold summary {
+      .quick {
         padding: 14px;
-        font-size: 14px;
-      }
-
-      .overview-fold .fold-content {
-        padding: 0 14px 14px;
+        border-radius: 18px;
+        min-width: 0;
       }
 
       .quick p {
@@ -1243,7 +1192,7 @@
         </section>
         <aside class="hero-side">
           <details class="fold-card">
-            <summary>重要时刻</summary>
+            <summary>交通时刻</summary>
             <div class="fold-content">
               <div class="hero-stats">
                 <div class="stat">
@@ -1258,17 +1207,6 @@
                   <strong>D3</strong>
                   <small>17:30 香港西九龙返广<br>建议 16:00 前后到站</small>
                 </div>
-              </div>
-            </div>
-          </details>
-          <details class="fold-card">
-            <summary>行动边界</summary>
-            <div class="fold-content">
-              <div class="chips">
-                <span class="chip">D2 不外跳旺角 / 油麻地 / 中环</span>
-                <span class="chip">D3 先回酒店拿行李再去西九龙</span>
-                <span class="chip">建议 15:20 - 15:40 从酒店去西九龙</span>
-                <span class="chip">D2 / D3 主景点组不重复</span>
               </div>
             </div>
           </details>
@@ -1290,24 +1228,18 @@
           </div>
         </div>
         <div class="overview-grid">
-          <details class="overview-fold" open>
-            <summary>D1 深圳夜间</summary>
-            <div class="fold-content">
-              <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
-            </div>
-          </details>
-          <details class="overview-fold">
-            <summary>D2 尖沙咀任务日</summary>
-            <div class="fold-content">
-              <p>先去酒店寄存行李，再在酒店 WiFi 下处理中银香港线上办卡；下午集中搜索并成交 GR III，晚上只走海旁奖励线。</p>
-            </div>
-          </details>
-          <details class="overview-fold">
-            <summary>D3 纯观光日</summary>
-            <div class="fold-content">
-              <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；如果更想拍港风街头，再切旺角 + 油麻地线。12:00 后开始回收动线。</p>
-            </div>
-          </details>
+          <article class="quick">
+            <strong>D1 深圳夜间</strong>
+            <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
+          </article>
+          <article class="quick">
+            <strong>D2 尖沙咀任务日</strong>
+            <p>先去酒店寄存行李，再在酒店 WiFi 下处理中银香港线上办卡；下午集中搜索并成交 GR III，晚上只走海旁奖励线。</p>
+          </article>
+          <article class="quick">
+            <strong>D3 纯观光日</strong>
+            <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；如果更想拍港风街头，再切旺角 + 油麻地线。12:00 后开始回收动线。</p>
+          </article>
         </div>
       </section>
 
