@@ -793,7 +793,8 @@
     @media (max-width: 760px) {
       .page-shell {
         width: min(calc(100% - 20px), var(--max));
-        padding-top: 14px;
+        padding-top: 12px;
+        padding-bottom: 28px;
       }
 
       .floating-nav {
@@ -818,17 +819,116 @@
       .timeline-card,
       .route-showcase,
       .check-card {
-        padding: 18px;
-        border-radius: 24px;
+        padding: 16px;
+        border-radius: 20px;
+      }
+
+      main {
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .hero-grid,
+      .hero-side,
+      .section-card,
+      .route-stack {
+        gap: 14px;
+      }
+
+      .eyebrow,
+      .chip,
+      .meta-pill,
+      .route-meta span,
+      .spot-tag {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      h1 {
+        margin-top: 12px;
+        font-size: 32px;
+      }
+
+      .lead {
+        margin-top: 12px;
+        font-size: 14px;
+        line-height: 1.7;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .hero-pills,
+      .hero-decision {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        margin-top: 14px;
+      }
+
+      .hero-pills .chip,
+      .hero-decision .chip {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .fold-card summary,
+      .fold-content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .hero-stats .stat {
+        min-width: 120px;
+        padding: 12px;
+        border-radius: 14px;
+      }
+
+      .stat strong {
+        font-size: 22px;
+      }
+
+      .section-head {
+        margin-bottom: 14px;
+      }
+
+      .section-head h2 {
+        font-size: 26px;
+      }
+
+      .section-head p {
+        margin: 4px 0 0;
+        font-size: 14px;
+        line-height: 1.6;
       }
 
       .timeline-item {
         grid-template-columns: 1fr;
-        gap: 8px;
+        gap: 6px;
+        padding-left: 14px;
       }
 
       .timeline {
+        gap: 12px;
         padding-left: 14px;
+      }
+
+      .timeline-item h4 {
+        font-size: 16px;
+      }
+
+      .timeline-item p,
+      .timeline-item li,
+      .time span,
+      .check-card p,
+      .check-card li,
+      .route-copy p,
+      .route-point p,
+      .spot-copy p,
+      .mini-food p {
+        font-size: 14px;
+        line-height: 1.65;
       }
 
       .section-head,
@@ -904,8 +1004,115 @@
         padding-bottom: 10px;
       }
 
+      .quick {
+        flex-basis: 74vw;
+        padding: 14px;
+        border-radius: 18px;
+      }
+
+      .quick p {
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .check-card {
+        flex-basis: 80vw;
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .route-showcase {
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .route-copy {
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .route-copy h3 {
+        font-size: 22px;
+      }
+
+      .route-summary {
+        padding: 12px 14px;
+        border-radius: 16px;
+      }
+
+      .route-summary h4 {
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+
       .map-frame {
-        height: 300px;
+        height: 220px;
+        border-radius: 16px;
+      }
+
+      .route-points {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        margin-top: 12px;
+        scroll-snap-type: x proximity;
+      }
+
+      .route-point {
+        flex: 0 0 78vw;
+        padding: 12px 14px;
+        border-radius: 16px;
+        scroll-snap-align: start;
+      }
+
+      .spot-grid {
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .spot-card {
+        flex-basis: 80vw;
+        border-radius: 16px;
+      }
+
+      .spot-image {
+        aspect-ratio: 1.55 / 1;
+      }
+
+      .spot-copy {
+        padding: 14px;
+        gap: 6px;
+      }
+
+      .spot-copy h4 {
+        font-size: 17px;
+      }
+
+      .spot-foods {
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .spot-foods h5 {
+        font-size: 13px;
+      }
+
+      .mini-food {
+        grid-template-columns: 72px 1fr;
+        gap: 8px;
+        padding: 8px;
+        border-radius: 14px;
+      }
+
+      .mini-food img {
+        width: 72px;
+        height: 60px;
+        border-radius: 10px;
+      }
+
+      .mini-food strong {
+        font-size: 13px;
       }
     }
   </style>
