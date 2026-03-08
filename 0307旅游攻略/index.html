@@ -180,16 +180,53 @@
       align-content: start;
     }
 
-    .glass-card {
+    .glass-card,
+    .fold-card {
       border-radius: 24px;
       padding: 18px;
       background: rgba(255, 250, 244, 0.86);
       border: 1px solid rgba(255, 255, 255, 0.7);
     }
 
-    .glass-card h3 {
+    .glass-card h3,
+    .fold-title {
       font-size: 16px;
       margin-bottom: 12px;
+    }
+
+    .fold-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .fold-card summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px;
+      font-weight: 800;
+    }
+
+    .fold-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .fold-card summary::after {
+      content: "+";
+      font-size: 22px;
+      line-height: 1;
+      color: var(--brand-deep);
+    }
+
+    .fold-card[open] summary::after {
+      content: "-";
+    }
+
+    .fold-content {
+      padding: 0 18px 18px;
     }
 
     .hero-stats .stat {
@@ -265,11 +302,22 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .overview-grid.scroll-row,
+    .check-grid.scroll-row {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scroll-snap-type: x proximity;
+    }
+
     .quick {
+      flex: 0 0 min(320px, 84vw);
       padding: 18px;
       border-radius: 22px;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 247, 240, 0.96));
       border: 1px solid rgba(29, 35, 48, 0.08);
+      scroll-snap-align: start;
     }
 
     .quick strong {
@@ -278,6 +326,33 @@
 
     .timeline-grid {
       grid-template-columns: 1fr;
+    }
+
+    .day-switch {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .day-switch button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: rgba(29, 35, 48, 0.08);
+      color: var(--subtle);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .day-switch button.active {
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+      box-shadow: inset 0 0 0 1px rgba(178, 74, 46, 0.14);
+    }
+
+    .day-panel[hidden] {
+      display: none;
     }
 
     .timeline-card {
@@ -434,8 +509,10 @@
     }
 
     .check-card {
+      flex: 0 0 min(360px, 86vw);
       border-radius: 24px;
       padding: 22px;
+      scroll-snap-align: start;
     }
 
     .check-card h3 {
@@ -641,8 +718,6 @@
 
     @media (max-width: 1120px) {
       .hero-grid,
-      .overview-grid,
-      .check-grid,
       .spot-grid {
         grid-template-columns: 1fr;
       }
@@ -678,6 +753,44 @@
         align-items: start;
       }
 
+      .day-switch {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .day-switch button {
+        width: 100%;
+        text-align: center;
+        padding: 10px 8px;
+      }
+
+      .route-switch {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: 100%;
+        padding: 0;
+        background: transparent;
+      }
+
+      .route-switch button {
+        width: 100%;
+        text-align: left;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(29, 35, 48, 0.1);
+      }
+
+      .route-switch button.active {
+        background: rgba(178, 74, 46, 0.1);
+        border-color: rgba(178, 74, 46, 0.22);
+      }
+
+      .overview-grid.scroll-row,
+      .check-grid.scroll-row {
+        padding-bottom: 10px;
+      }
+
       .map-frame {
         height: 300px;
       }
@@ -709,32 +822,36 @@
           </div>
         </section>
         <aside class="hero-side">
-          <div class="glass-card">
-            <h3>重要时刻</h3>
-            <div class="hero-stats">
-              <div class="stat">
-                <strong>D1</strong>
-                <small>19:30 广州东出发<br>20:30 深圳北到达</small>
-              </div>
-              <div class="stat">
-                <strong>D2</strong>
-                <small>10:00 深圳北出发<br>10:30 香港西九龙到达</small>
-              </div>
-              <div class="stat">
-                <strong>D3</strong>
-                <small>17:30 香港西九龙返广<br>建议 16:00 前后到站</small>
+          <details class="fold-card">
+            <summary>重要时刻</summary>
+            <div class="fold-content">
+              <div class="hero-stats">
+                <div class="stat">
+                  <strong>D1</strong>
+                  <small>19:30 广州东出发<br>20:30 深圳北到达</small>
+                </div>
+                <div class="stat">
+                  <strong>D2</strong>
+                  <small>10:00 深圳北出发<br>10:30 香港西九龙到达</small>
+                </div>
+                <div class="stat">
+                  <strong>D3</strong>
+                  <small>17:30 香港西九龙返广<br>建议 16:00 前后到站</small>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="glass-card">
-            <h3>行动边界</h3>
-            <div class="chips">
-              <span class="chip">D2 不外跳旺角 / 油麻地 / 中环</span>
-              <span class="chip">D3 先回酒店拿行李再去西九龙</span>
-              <span class="chip">建议 15:20 - 15:40 从酒店去西九龙</span>
-              <span class="chip">D2 / D3 主景点组不重复</span>
+          </details>
+          <details class="fold-card">
+            <summary>行动边界</summary>
+            <div class="fold-content">
+              <div class="chips">
+                <span class="chip">D2 不外跳旺角 / 油麻地 / 中环</span>
+                <span class="chip">D3 先回酒店拿行李再去西九龙</span>
+                <span class="chip">建议 15:20 - 15:40 从酒店去西九龙</span>
+                <span class="chip">D2 / D3 主景点组不重复</span>
+              </div>
             </div>
-          </div>
+          </details>
         </aside>
       </div>
     </header>
@@ -752,7 +869,7 @@
             <span class="chip">中午后进入返程模式</span>
           </div>
         </div>
-        <div class="overview-grid">
+        <div class="overview-grid scroll-row">
           <article class="quick">
             <strong>D1 深圳夜间</strong>
             <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
@@ -769,7 +886,12 @@
       </section>
 
       <section class="timeline-grid">
-        <article class="timeline-card">
+        <div class="day-switch" data-day-group="trip-days">
+          <button type="button" class="active" data-day="d1">D1</button>
+          <button type="button" data-day="d2">D2</button>
+          <button type="button" data-day="d3">D3</button>
+        </div>
+        <article class="timeline-card day-panel" data-day-panel="d1">
           <div class="timeline-top">
             <div class="title-wrap">
               <span class="day-flag">D1 · 2026-03-19 周四</span>
@@ -829,7 +951,7 @@
           </div>
         </article>
 
-        <article class="timeline-card">
+        <article class="timeline-card day-panel" data-day-panel="d2" hidden>
           <div class="timeline-top">
             <div class="title-wrap">
               <span class="day-flag">D2 · 2026-03-20 周五</span>
@@ -919,7 +1041,7 @@
           </div>
         </article>
 
-        <article class="timeline-card">
+        <article class="timeline-card day-panel" data-day-panel="d3" hidden>
           <div class="timeline-top">
             <div class="title-wrap">
               <span class="day-flag">D3 · 2026-03-21 周六</span>
@@ -1155,7 +1277,7 @@
             <p>把需要现场判断的要点提前写清楚。</p>
           </div>
         </div>
-        <div class="check-grid">
+        <div class="check-grid scroll-row">
           <article class="check-card">
             <h3>BOCHK 借记卡</h3>
             <p>线上办理地点就放在尖沙咀凯悦的酒店 WiFi 下，重点是稳定、好补资料、不中断下午的任务。</p>
@@ -1774,11 +1896,28 @@
       renderFoodModule(card.dataset.foodTarget);
     }
 
+    function syncDayPanels(day) {
+      document.querySelectorAll("[data-day-group='trip-days'] button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.day === day);
+      });
+      document.querySelectorAll("[data-day-panel]").forEach((panel) => {
+        panel.hidden = panel.dataset.dayPanel !== day;
+      });
+    }
+
     document.querySelectorAll("[data-route-group='d3']").forEach((group) => {
       group.addEventListener("click", (event) => {
         const button = event.target.closest("button[data-route]");
         if (!button) return;
         syncRoutePanels(button.dataset.route);
+      });
+    });
+
+    document.querySelectorAll("[data-day-group='trip-days']").forEach((group) => {
+      group.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-day]");
+        if (!button) return;
+        syncDayPanels(button.dataset.day);
       });
     });
 
@@ -1793,6 +1932,7 @@
     });
 
     window.addEventListener("load", () => {
+      syncDayPanels("d1");
       syncRoutePanels("classic");
       ["d2-k11", "classic-tram", "street-ladies"].forEach(renderFoodModule);
       Object.values(mapRegistry).forEach((entry) => {
