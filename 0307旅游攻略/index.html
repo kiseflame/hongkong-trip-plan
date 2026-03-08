@@ -328,24 +328,54 @@
       grid-template-columns: 1fr;
     }
 
-    .timeline-grid.scroll-row {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      scroll-snap-type: x proximity;
-    }
-
-    .timeline-grid.scroll-row .timeline-card {
-      flex: 0 0 min(760px, 92vw);
-      height: auto;
-      scroll-snap-align: start;
-    }
-
     .timeline-card {
       border-radius: 28px;
       padding: 22px;
+    }
+
+    .day-accordion {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .day-accordion + .day-accordion {
+      margin-top: 16px;
+    }
+
+    .day-summary {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 22px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .day-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .day-summary::after {
+      content: "+";
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(29, 35, 48, 0.08);
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .day-accordion[open] .day-summary::after {
+      content: "−";
+    }
+
+    .day-accordion-body {
+      padding: 0 22px 22px;
     }
 
     .timeline-top {
@@ -833,9 +863,9 @@
         </div>
       </section>
 
-      <section class="timeline-grid scroll-row">
-        <article class="timeline-card">
-          <div class="timeline-top">
+      <section class="timeline-grid">
+        <details class="timeline-card day-accordion">
+          <summary class="timeline-top day-summary">
             <div class="title-wrap">
               <span class="day-flag">D1 · 2026-03-19 周四</span>
               <h3>深圳夜间</h3>
@@ -845,7 +875,8 @@
               <span class="chip">快吃快住</span>
               <span class="chip">给 D2 留体力</span>
             </div>
-          </div>
+          </summary>
+          <div class="day-accordion-body">
           <div class="timeline">
             <div class="timeline-item">
               <div class="time">
@@ -892,10 +923,11 @@
               </div>
             </div>
           </div>
-        </article>
+          </div>
+        </details>
 
-        <article class="timeline-card">
-          <div class="timeline-top">
+        <details class="timeline-card day-accordion" open>
+          <summary class="timeline-top day-summary">
             <div class="title-wrap">
               <span class="day-flag">D2 · 2026-03-20 周五</span>
               <h3>任务日 + 九龙海旁夜景收尾</h3>
@@ -905,7 +937,8 @@
               <span class="chip">酒店 WiFi 办卡</span>
               <span class="chip">GR III 下午优先</span>
             </div>
-          </div>
+          </summary>
+          <div class="day-accordion-body">
           <div class="timeline">
             <div class="timeline-item">
               <div class="time">
@@ -982,10 +1015,11 @@
               </div>
             </div>
           </div>
-        </article>
+          </div>
+        </details>
 
-        <article class="timeline-card">
-          <div class="timeline-top">
+        <details class="timeline-card day-accordion">
+          <summary class="timeline-top day-summary">
             <div class="title-wrap">
               <span class="day-flag">D3 · 2026-03-21 周六</span>
               <h3>纯观光日，只选一条主线</h3>
@@ -995,7 +1029,8 @@
               <span class="chip">下午保留近酒店轻松行程</span>
               <span class="chip">15:10 - 15:25 去西九龙</span>
             </div>
-          </div>
+          </summary>
+          <div class="day-accordion-body">
           <div class="route-switch" data-route-group="d3">
             <button type="button" class="active" data-route="classic">默认推荐：中环 + 山顶经典首访线</button>
             <button type="button" data-route="street">备选：旺角 + 星际城市 + 油麻地警署港味线</button>
@@ -1210,7 +1245,8 @@
               </div>
             </div>
           </div>
-        </article>
+          </div>
+        </details>
       </section>
 
       <section class="section-card">
