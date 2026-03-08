@@ -331,6 +331,7 @@
     .timeline-grid.scroll-row {
       display: flex;
       gap: 18px;
+      align-items: flex-start;
       overflow-x: auto;
       padding-bottom: 8px;
       scroll-snap-type: x proximity;
@@ -338,6 +339,7 @@
 
     .timeline-grid.scroll-row .timeline-card {
       flex: 0 0 min(760px, 92vw);
+      height: auto;
       scroll-snap-align: start;
     }
 
