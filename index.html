@@ -462,6 +462,14 @@
       gap: 6px;
     }
 
+    .day-compact {
+      display: none;
+      margin: 0;
+      color: var(--subtle);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
     .day-flag {
       display: inline-flex;
       align-items: center;
@@ -829,6 +837,46 @@
         align-items: start;
       }
 
+      .day-summary {
+        display: grid;
+        grid-template-columns: 1fr 40px;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 18px;
+      }
+
+      .day-summary .chips {
+        display: none;
+      }
+
+      .day-summary::after {
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+      }
+
+      .day-summary .title-wrap {
+        gap: 4px;
+      }
+
+      .day-summary .day-flag {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+
+      .day-summary h3 {
+        font-size: 20px;
+        line-height: 1.2;
+      }
+
+      .day-compact {
+        display: block;
+      }
+
+      .day-accordion-body {
+        padding: 0 18px 18px;
+      }
+
       .route-switch {
         display: grid;
         grid-template-columns: 1fr;
@@ -966,6 +1014,7 @@
             <div class="title-wrap">
               <span class="day-flag">D1 · 2026-03-19 周四</span>
               <h3>深圳夜间</h3>
+              <p class="day-compact">入住、晚餐、整理资料，整晚不跨区。</p>
             </div>
             <div class="chips">
               <span class="chip">不跨区</span>
@@ -1028,6 +1077,7 @@
             <div class="title-wrap">
               <span class="day-flag">D2 · 2026-03-20 周五</span>
               <h3>任务日 + 九龙海旁夜景收尾</h3>
+              <p class="day-compact">寄存行李、酒店 WiFi 办卡、下午买 GR III、晚上海旁收尾。</p>
             </div>
             <div class="chips">
               <span class="chip">寄存行李优先</span>
@@ -1120,6 +1170,7 @@
             <div class="title-wrap">
               <span class="day-flag">D3 · 2026-03-21 周六</span>
               <h3>纯观光日，只选一条主线</h3>
+              <p class="day-compact">09:00 出发，上午二选一，下午回酒店拿行李再去西九龙。</p>
             </div>
             <div class="chips">
               <span class="chip">09:00 出发</span>
