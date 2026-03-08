@@ -359,6 +359,20 @@
       margin-bottom: 20px;
     }
 
+    summary.section-head {
+      list-style: none;
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+
+    summary.section-head::-webkit-details-marker {
+      display: none;
+    }
+
+    .section-fold .fold-content {
+      padding-top: 18px;
+    }
+
     .section-head h2 {
       font-size: clamp(24px, 3vw, 36px);
       font-family: "Noto Serif SC", serif;
@@ -911,6 +925,10 @@
         margin-bottom: 14px;
       }
 
+      .section-fold .fold-content {
+        padding-top: 14px;
+      }
+
       .section-head h2 {
         font-size: 26px;
       }
@@ -1215,8 +1233,8 @@
     </header>
 
     <main>
-      <section class="section-card" id="overview">
-        <div class="section-head">
+      <details class="section-card fold-card section-fold" id="overview">
+        <summary class="section-head">
           <div>
             <h2>行程总览</h2>
             <p>先看三天分工，再看每天的时间轴。</p>
@@ -1226,22 +1244,24 @@
             <span class="chip">先任务后观光</span>
             <span class="chip">中午后进入返程模式</span>
           </div>
+        </summary>
+        <div class="fold-content">
+          <div class="overview-grid">
+            <article class="quick">
+              <strong>D1 深圳夜间</strong>
+              <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
+            </article>
+            <article class="quick">
+              <strong>D2 尖沙咀任务日</strong>
+              <p>先去酒店寄存行李，再在酒店 WiFi 下处理中银香港线上办卡；下午集中搜索并成交 GR III，晚上只走海旁奖励线。</p>
+            </article>
+            <article class="quick">
+              <strong>D3 纯观光日</strong>
+              <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；如果更想拍港风街头，再切旺角 + 油麻地线。12:00 后开始回收动线。</p>
+            </article>
+          </div>
         </div>
-        <div class="overview-grid">
-          <article class="quick">
-            <strong>D1 深圳夜间</strong>
-            <p>只做入住、晚餐、整理第二天资料，不安排跨区夜游。重点是把第二天的证件、App 和清单全部准备好。</p>
-          </article>
-          <article class="quick">
-            <strong>D2 尖沙咀任务日</strong>
-            <p>先去酒店寄存行李，再在酒店 WiFi 下处理中银香港线上办卡；下午集中搜索并成交 GR III，晚上只走海旁奖励线。</p>
-          </article>
-          <article class="quick">
-            <strong>D3 纯观光日</strong>
-            <p>上午只允许二选一：第一次来香港默认走中环 + 山顶；如果更想拍港风街头，再切旺角 + 油麻地线。12:00 后开始回收动线。</p>
-          </article>
-        </div>
-      </section>
+      </details>
 
       <section class="timeline-grid" id="days">
         <details class="timeline-card day-accordion">
