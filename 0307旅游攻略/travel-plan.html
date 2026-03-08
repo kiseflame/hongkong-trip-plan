@@ -359,25 +359,22 @@
       margin-bottom: 20px;
     }
 
-    summary.section-head {
-      list-style: none;
+    .overview-summary {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 22px;
       cursor: pointer;
+      list-style: none;
       margin-bottom: 0;
     }
 
-    summary.section-head::-webkit-details-marker {
+    .overview-summary::-webkit-details-marker {
       display: none;
     }
 
-    .section-fold .fold-content {
-      padding-top: 18px;
-    }
-
-    .section-fold .section-head {
-      margin-bottom: 0;
-    }
-
-    .section-fold .section-head::after {
+    .overview-summary::after {
       content: "+";
       flex: 0 0 auto;
       width: 32px;
@@ -391,8 +388,12 @@
       line-height: 1;
     }
 
-    .section-fold[open] .section-head::after {
+    .section-fold[open] .overview-summary::after {
       content: "−";
+    }
+
+    .section-fold .fold-content {
+      padding-top: 18px;
     }
 
     .section-head h2 {
@@ -951,7 +952,7 @@
         padding-top: 14px;
       }
 
-      .section-fold .section-head {
+      .overview-summary {
         display: grid;
         grid-template-columns: 1fr 40px;
         align-items: center;
@@ -959,16 +960,26 @@
         padding: 14px 16px;
       }
 
-      .section-fold .section-head::after {
+      .overview-summary::after {
         width: 28px;
         height: 28px;
         font-size: 20px;
+      }
+
+      .overview-summary h2 {
+        font-size: 20px;
+        line-height: 1.2;
       }
 
       .section-head h2 {
         font-size: 26px;
       }
 
+      .overview-summary .chips {
+        display: none;
+      }
+
+      .overview-summary p,
       .section-head p {
         margin: 4px 0 0;
         font-size: 14px;
@@ -1270,10 +1281,10 @@
 
     <main>
       <details class="section-card fold-card section-fold" id="overview">
-        <summary class="section-head">
+        <summary class="overview-summary">
           <div class="title-wrap">
             <h2>行程总览</h2>
-            <p>先看三天分工，再看每天的时间轴。</p>
+            <p class="day-compact">先看三天分工，再看每天的时间轴。</p>
           </div>
           <div class="chips">
             <span class="chip">少折返</span>
