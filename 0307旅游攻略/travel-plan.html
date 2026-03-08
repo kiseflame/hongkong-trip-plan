@@ -503,13 +503,28 @@
     }
 
     .spot-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 6px;
       margin-top: 18px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
     }
 
     .spot-card {
+      flex: 0 0 min(320px, 84vw);
       border-radius: 20px;
       overflow: hidden;
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .spot-card.active {
+      transform: translateY(-2px);
+      border-color: rgba(178, 74, 46, 0.28);
+      box-shadow: 0 24px 50px rgba(43, 34, 20, 0.16);
     }
 
     .spot-image {
@@ -541,6 +556,78 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    .food-module {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(29, 35, 48, 0.08);
+    }
+
+    .food-module-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .food-module-head p,
+    .food-intro,
+    .food-card p {
+      margin: 0;
+      color: var(--subtle);
+      line-height: 1.72;
+    }
+
+    .food-list {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scroll-snap-type: x proximity;
+    }
+
+    .food-card {
+      flex: 0 0 min(290px, 82vw);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255, 250, 242, 0.88);
+      border: 1px solid rgba(29, 35, 48, 0.08);
+      scroll-snap-align: start;
+    }
+
+    .food-card img {
+      aspect-ratio: 1.35 / 1;
+      object-fit: cover;
+    }
+
+    .food-copy {
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .food-copy h5 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .food-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .food-badges span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(178, 74, 46, 0.1);
+      color: var(--brand-deep);
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .spot-tag {
@@ -1132,8 +1219,8 @@
                 <p>看完码头和 1881 后，最后一站放在海港城更顺，逛完就能直接回酒店结束这晚。</p>
               </div>
             </div>
-            <div class="spot-grid">
-              <article class="spot-card">
+            <div class="spot-grid" data-food-scope="d2">
+              <article class="spot-card active" data-food-target="d2-k11" tabindex="0" role="button" aria-label="查看 K11 附近美食">
                 <div class="spot-image">
                   <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/K11_MUSEA_Sunken_Plaza_201911.jpg" alt="K11 MUSEA 外观">
                 </div>
@@ -1144,10 +1231,9 @@
                     <span class="spot-tag">快吃友好</span>
                   </div>
                   <p>这一段的任务是把晚餐吃稳，不拖节奏。商场餐饮密度高，适合直接衔接海旁。</p>
-                  <p>附近吃什么：K11 里找港式简餐、寿司或面食都方便，适合快吃后直接去海旁。</p>
                 </div>
               </article>
-              <article class="spot-card">
+              <article class="spot-card" data-food-target="d2-stars" tabindex="0" role="button" aria-label="查看星光大道附近美食">
                 <div class="spot-image">
                   <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/2024-12-27_Avenue_of_Stars%2C_Hong_Kong.jpg" alt="香港星光大道">
                 </div>
@@ -1158,10 +1244,9 @@
                     <span class="spot-tag">散步感强</span>
                   </div>
                   <p>这里负责维港夜景和海旁散步，是 D2 晚上的主景点；看完后 D3 就不再回到同一批海旁体验。</p>
-                  <p>附近吃什么：海旁一带适合买饮品、雪糕或小甜品，边走边看景很舒服。</p>
                 </div>
               </article>
-              <article class="spot-card">
+              <article class="spot-card" data-food-target="d2-pier" tabindex="0" role="button" aria-label="查看天星码头和1881附近美食">
                 <div class="spot-image">
                   <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1881_Heritage%2C_Hong_Kong.JPG" alt="1881 Heritage">
                 </div>
@@ -1172,12 +1257,11 @@
                     <span class="spot-tag">灯光氛围</span>
                   </div>
                   <p>维持夜晚仪式感，但不继续拉远动线。收尾看一轮灯光就回酒店，最舒服。</p>
-                  <p>附近吃什么：码头外围适合买咖啡、甜点或外带饮品，适合当夜景收尾的小停顿。</p>
                 </div>
               </article>
-              <article class="spot-card">
+              <article class="spot-card" data-food-target="d2-harbour" tabindex="0" role="button" aria-label="查看海港城附近美食">
                 <div class="spot-image">
-                  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Harbour_City_Night_View_2010.jpg" alt="海港城夜景">
+                  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/HarBour_City_Hong_Kong.JPG" alt="海港城外观">
                 </div>
                 <div class="spot-copy">
                   <h4>海港城收尾段</h4>
@@ -1186,9 +1270,19 @@
                     <span class="spot-tag">回酒店顺路</span>
                   </div>
                   <p>把最后一段留给海港城更方便，逛完就能直接回酒店，不会再绕回头路。</p>
-                  <p>附近吃什么：如果晚点还想补一口，海港城里和广东道周边都适合买甜品、咖啡或小食。</p>
                 </div>
               </article>
+            </div>
+            <div class="food-module" data-food-module="d2">
+              <div class="food-module-head">
+                <div>
+                  <h4>附近吃什么</h4>
+                  <p>点上面的景点卡，就切换这一段附近更适合停的美食。</p>
+                </div>
+                <span class="spot-tag">公开攻略热度方向</span>
+              </div>
+              <p class="food-intro" data-food-intro></p>
+              <div class="food-list" data-food-list></div>
             </div>
           </article>
 
@@ -1233,49 +1327,57 @@
                   <p>经典线只保留山顶主体验，下午把时间留给尖沙咀附近的轻松活动，中环支线就不再继续展开。</p>
                 </div>
               </div>
-              <div class="spot-grid">
-                <article class="spot-card">
+              <div class="spot-grid" data-food-scope="d3-classic">
+                <article class="spot-card active" data-food-target="classic-tram" tabindex="0" role="button" aria-label="查看山顶缆车附近美食">
                   <div class="spot-image">
                     <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Peak_Tram_new_lower_terminus_station.jpg" alt="山顶缆车中环总站">
                   </div>
-                <div class="spot-copy">
-                  <h4>Peak Tram Lower Terminus</h4>
-                  <div class="spot-tags">
-                    <span class="spot-tag">经典起点</span>
-                    <span class="spot-tag">建议早到</span>
+                  <div class="spot-copy">
+                    <h4>Peak Tram Lower Terminus</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">经典起点</span>
+                      <span class="spot-tag">建议早到</span>
+                    </div>
+                    <p>山顶缆车本身就是体验的一部分。早点到，能把排队和上山时间控制在上午。</p>
                   </div>
-                  <p>山顶缆车本身就是体验的一部分。早点到，能把排队和上山时间控制在上午。</p>
-                  <p>附近吃什么：中环出发前可先买咖啡和面包，山顶缆车站附近更适合短停补给。</p>
-                </div>
-              </article>
-                <article class="spot-card">
+                </article>
+                <article class="spot-card" data-food-target="classic-view" tabindex="0" role="button" aria-label="查看山顶观景区附近美食">
                   <div class="spot-image">
                     <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hong-Kong_skyline.JPG" alt="从太平山顶俯瞰香港天际线">
                   </div>
-                <div class="spot-copy">
-                  <h4>山顶俯瞰港岛天际线</h4>
-                  <div class="spot-tags">
-                    <span class="spot-tag">首访优先</span>
-                    <span class="spot-tag">开阔感最强</span>
+                  <div class="spot-copy">
+                    <h4>山顶俯瞰港岛天际线</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">首访优先</span>
+                      <span class="spot-tag">开阔感最强</span>
+                    </div>
+                    <p>这条线的核心是把香港最经典的高位视角完整留给上午，观景和拍照都会更集中。</p>
                   </div>
-                  <p>这条线的核心是把香港最经典的高位视角完整留给上午，观景和拍照都会更集中。</p>
-                  <p>附近吃什么：山顶更适合轻食、咖啡和甜品，午餐回尖沙咀吃会更顺。</p>
-                </div>
-              </article>
-                <article class="spot-card">
+                </article>
+                <article class="spot-card" data-food-target="classic-peak" tabindex="0" role="button" aria-label="查看凌霄阁附近美食">
                   <div class="spot-image">
                     <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hong_Kong_Peak_Tower_IMG_5295.JPG" alt="凌霄阁外观">
                   </div>
-                <div class="spot-copy">
-                  <h4>凌霄阁 / 山顶区</h4>
-                  <div class="spot-tags">
-                    <span class="spot-tag">情侣约会感</span>
-                    <span class="spot-tag">停留集中</span>
+                  <div class="spot-copy">
+                    <h4>凌霄阁 / 山顶区</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">情侣约会感</span>
+                      <span class="spot-tag">停留集中</span>
+                    </div>
+                    <p>把山顶作为唯一主景点更合理，看景、拍照、轻食都能集中解决，不把路线切碎。</p>
                   </div>
-                  <p>把山顶作为唯一主景点更合理，看景、拍照、轻食都能集中解决，不把路线切碎。</p>
-                  <p>附近吃什么：凌霄阁一带适合坐下喝杯咖啡，拍完照再慢慢下山。</p>
+                </article>
+              </div>
+              <div class="food-module" data-food-module="d3-classic">
+                <div class="food-module-head">
+                  <div>
+                    <h4>附近吃什么</h4>
+                    <p>点山顶线里的景点卡，下面会切换对应的补给和餐厅建议。</p>
+                  </div>
+                  <span class="spot-tag">中环 / 山顶热门攻略向</span>
                 </div>
-              </article>
+                <p class="food-intro" data-food-intro></p>
+                <div class="food-list" data-food-list></div>
               </div>
             </div>
 
@@ -1305,49 +1407,57 @@
                   <p>街头线的精华留在上午，下午只补一段近酒店的轻松行程，然后再收回西九龙。</p>
                 </div>
               </div>
-              <div class="spot-grid">
-                <article class="spot-card">
+              <div class="spot-grid" data-food-scope="d3-street">
+                <article class="spot-card active" data-food-target="street-ladies" tabindex="0" role="button" aria-label="查看女人街附近美食">
                   <div class="spot-image">
                     <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mongkok_LadiesMarket.jpg" alt="旺角女人街">
                   </div>
-                <div class="spot-copy">
-                  <h4>女人街外围</h4>
-                  <div class="spot-tags">
-                    <span class="spot-tag">街头感</span>
-                    <span class="spot-tag">扫街友好</span>
+                  <div class="spot-copy">
+                    <h4>女人街外围</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">街头感</span>
+                      <span class="spot-tag">扫街友好</span>
+                    </div>
+                    <p>这里适合拍摊位、招牌和人流密度，是整条街头线最直观的港味起手式。</p>
                   </div>
-                  <p>这里适合拍摊位、招牌和人流密度，是整条街头线最直观的港味起手式。</p>
-                  <p>附近吃什么：旺角段适合买奶茶、鸡蛋仔、烧味饭或面包类快食，边走边补给很方便。</p>
-                </div>
-              </article>
-                <article class="spot-card">
+                </article>
+                <article class="spot-card" data-food-target="street-sneakers" tabindex="0" role="button" aria-label="查看西洋菜南街附近美食">
                   <div class="spot-image">
                     <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sai_Yeung_Choi_Street_South_at_night_outside_Mong_Kok_MTR_station.JPG" alt="西洋菜南街夜景">
                   </div>
-                <div class="spot-copy">
-                  <h4>西洋菜南街 / 星际城市一带</h4>
-                  <div class="spot-tags">
-                    <span class="spot-tag">商场 + 街景</span>
-                    <span class="spot-tag">霓虹感</span>
+                  <div class="spot-copy">
+                    <h4>西洋菜南街 / 星际城市一带</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">商场 + 街景</span>
+                      <span class="spot-tag">霓虹感</span>
+                    </div>
+                    <p>把街头感和老派商场气质拼在一起，比单纯逛一条街更完整，也更像港片里的旧九龙节奏。</p>
                   </div>
-                  <p>把街头感和老派商场气质拼在一起，比单纯逛一条街更完整，也更像港片里的旧九龙节奏。</p>
-                  <p>附近吃什么：星际城市附近适合茶餐厅、鱼蛋粉和甜品店，坐下休息一会也方便。</p>
-                </div>
-              </article>
-                <article class="spot-card">
+                </article>
+                <article class="spot-card" data-food-target="street-ymt" tabindex="0" role="button" aria-label="查看油麻地警署附近美食">
                   <div class="spot-image">
                     <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Yau_Ma_Tei_Police_Station.JPG" alt="油麻地警署">
                   </div>
-                <div class="spot-copy">
-                  <h4>油麻地警署</h4>
-                  <div class="spot-tags">
-                    <span class="spot-tag">港剧辨识度高</span>
-                    <span class="spot-tag">午餐前收口</span>
+                  <div class="spot-copy">
+                    <h4>油麻地警署</h4>
+                    <div class="spot-tags">
+                      <span class="spot-tag">港剧辨识度高</span>
+                      <span class="spot-tag">午餐前收口</span>
+                    </div>
+                    <p>适合当街头线的尾声，再从这里顺势转去佐敦 / 庙街附近吃午餐，不必再拉回维港。</p>
                   </div>
-                  <p>适合当街头线的尾声，再从这里顺势转去佐敦 / 庙街附近吃午餐，不必再拉回维港。</p>
-                  <p>附近吃什么：佐敦和庙街一带适合煲仔饭、云吞面、港式烧味或糖水，午餐选择很集中。</p>
+                </article>
+              </div>
+              <div class="food-module" data-food-module="d3-street">
+                <div class="food-module-head">
+                  <div>
+                    <h4>附近吃什么</h4>
+                    <p>点旺角线里的景点卡，下面会切换那一段最适合停的美食。</p>
+                  </div>
+                  <span class="spot-tag">旺角 / 油麻地热门攻略向</span>
                 </div>
-              </article>
+                <p class="food-intro" data-food-intro></p>
+                <div class="food-list" data-food-list></div>
               </div>
             </div>
           </article>
@@ -1390,6 +1500,189 @@
         { name: "回凯悦取行李", coord: [22.2976, 114.1781] },
         { name: "香港西九龙", coord: [22.3049, 114.1602] }
       ]
+    };
+
+    const foodModules = {
+      "d2-k11": {
+        scope: "d2",
+        intro: "这段适合先坐下吃正餐。公开小红书攻略里，尖沙咀晚间动线很常把 K11 作为晚餐起点，因为吃完直接切海旁最顺。",
+        items: [
+          {
+            title: "BLT Steak",
+            tags: ["K11 MUSEA", "适合坐下吃晚餐"],
+            image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
+            text: "想把 D2 晚餐吃得正式一点，这类西式牛排或海景餐厅会更有约会感，吃完走去海旁也不累。"
+          },
+          {
+            title: "Holt's Cafe / 商场港式餐厅",
+            tags: ["快进快出", "港式口味"],
+            image: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80",
+            text: "如果更想控制时间，商场内的港式餐厅和简餐店更稳，适合把晚饭压在 45 分钟左右。"
+          }
+        ]
+      },
+      "d2-stars": {
+        scope: "d2",
+        intro: "星光大道这一段更适合买小食或饮品边走边看景。公开攻略里常见的是把正餐放前面，海旁只留轻补给。",
+        items: [
+          {
+            title: "海旁咖啡 / 外带饮品",
+            tags: ["边走边喝", "夜景氛围"],
+            image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80",
+            text: "拿一杯咖啡或茶饮沿海旁慢走最轻松，不会打断维港夜景的连贯感。"
+          },
+          {
+            title: "甜品或雪糕小停顿",
+            tags: ["轻量补给", "情侣散步"],
+            image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80",
+            text: "如果晚餐已经吃够，这段更适合用甜品当收口，不需要再坐下来吃一顿。"
+          }
+        ]
+      },
+      "d2-pier": {
+        scope: "d2",
+        intro: "天星码头和 1881 一带适合把夜线走慢一点。公开攻略常把这里作为拍照和喝饮品的停顿位。",
+        items: [
+          {
+            title: "码头边咖啡 / 小甜点",
+            tags: ["拍照后短停", "不拖节奏"],
+            image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80",
+            text: "这段更适合拿咖啡或小蛋糕坐一下，看完灯光后再继续往海港城方向收。"
+          },
+          {
+            title: "1881 周边甜品店",
+            tags: ["夜间仪式感", "收尾段"],
+            image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80",
+            text: "如果想让 D2 更像约会夜，可以在 1881 周边补一个小甜品，再继续往海港城走。"
+          }
+        ]
+      },
+      "d2-harbour": {
+        scope: "d2",
+        intro: "海港城更适合当夜线最后一站。攻略里常见的做法是只短逛和补一口小食，然后直接回酒店，不再重新开新路线。",
+        items: [
+          {
+            title: "海港城甜品 / 咖啡",
+            tags: ["最后一站", "回酒店前"],
+            image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80",
+            text: "如果还想坐一下，海港城里找咖啡、甜品或轻食最稳，吃完就能直接回酒店。"
+          },
+          {
+            title: "广东道小食补给",
+            tags: ["外带友好", "不再折返"],
+            image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80",
+            text: "想边走边收尾的话，可以在广东道一带带份小食或饮品，回酒店前不会有太重负担。"
+          }
+        ]
+      },
+      "classic-tram": {
+        scope: "d3-classic",
+        intro: "中环出发段适合快补给。公开攻略里，山顶线通常建议出发前先喝咖啡或带面包，不要把第一餐拖成排队项目。",
+        items: [
+          {
+            title: "Bakehouse",
+            tags: ["中环热门", "酥皮和蛋挞"],
+            image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+            text: "很多公开攻略会把 Bakehouse 当作中环快补给点，适合买面包和蛋挞后边走边吃。"
+          },
+          {
+            title: "% Arabica / 中环咖啡",
+            tags: ["咖啡补给", "上山前醒神"],
+            image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80",
+            text: "如果只想快速提神，一杯咖啡就够，不用在中环把时间耗在正式早餐上。"
+          }
+        ]
+      },
+      "classic-view": {
+        scope: "d3-classic",
+        intro: "山顶观景区更适合轻食、甜品和咖啡。公开攻略一般会把午餐留到回尖沙咀以后，山顶只做轻补给。",
+        items: [
+          {
+            title: "山顶轻食 / 咖啡",
+            tags: ["看景间隙", "不压午餐"],
+            image: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80",
+            text: "山顶上更适合小份轻食和咖啡，喝完继续拍景，节奏不会被打断。"
+          },
+          {
+            title: "山顶甜品",
+            tags: ["情侣分享", "拍照后补糖"],
+            image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80",
+            text: "如果想在观景后放慢一点，甜品和热饮会比正式午餐更适合这个位置。"
+          }
+        ]
+      },
+      "classic-peak": {
+        scope: "d3-classic",
+        intro: "凌霄阁一带适合短暂停留，不适合把时间耗成正餐。公开攻略里更常见的是拍照、喝咖啡、回尖沙咀吃午餐。",
+        items: [
+          {
+            title: "凌霄阁咖啡馆",
+            tags: ["坐下休息", "景观位"],
+            image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80",
+            text: "想坐一会儿的话，在凌霄阁附近找景观咖啡会更合适，停留 20 到 30 分钟就够。"
+          },
+          {
+            title: "回尖沙咀后吃午餐",
+            tags: ["节奏更顺", "避免山顶排队"],
+            image: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80",
+            text: "午餐回到尖沙咀再吃，会比在山顶现场找正餐更节省时间，也更容易接下午行程。"
+          }
+        ]
+      },
+      "street-ladies": {
+        scope: "d3-street",
+        intro: "女人街外围更适合买边走边吃的旺角小食。公开攻略里这段最常见的是奶茶、鸡蛋仔、烧味饭和外带小吃。",
+        items: [
+          {
+            title: "鸡蛋仔 / 港式街头甜点",
+            tags: ["边走边吃", "旺角高频"],
+            image: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=900&q=80",
+            text: "这类街头甜点最适合配女人街和西洋菜南街的逛街节奏，停留短、补糖快。"
+          },
+          {
+            title: "奶茶 / 菠萝包快补给",
+            tags: ["早段补能量", "不影响动线"],
+            image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+            text: "如果 09:00 出门后还没正式吃早餐，旺角这段先补奶茶和面包会很顺。"
+          }
+        ]
+      },
+      "street-sneakers": {
+        scope: "d3-street",
+        intro: "西洋菜南街和星际城市附近适合停茶餐厅或鱼蛋粉。公开攻略里这段很适合用来坐下休息一下，再继续往油麻地方向走。",
+        items: [
+          {
+            title: "金华冰厅",
+            tags: ["菠萝油", "旺角常见推荐"],
+            image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+            text: "公开攻略里常出现的旺角老牌冰厅，适合想吃经典港式面包和奶茶时停一下。"
+          },
+          {
+            title: "鱼蛋粉 / 茶餐厅午前补给",
+            tags: ["坐下休息", "街头线中段"],
+            image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80",
+            text: "如果更想要热食，中段停鱼蛋粉或茶餐厅，会比一路走到底更舒服。"
+          }
+        ]
+      },
+      "street-ymt": {
+        scope: "d3-street",
+        intro: "油麻地警署后半段最适合顺势去佐敦和庙街吃午餐。公开攻略里这段常见的是煲仔饭、云吞面、糖水和烧味。",
+        items: [
+          {
+            title: "兴记煲仔饭",
+            tags: ["庙街热门", "适合午餐"],
+            image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80",
+            text: "如果想把午餐吃得更有港味，庙街一带的煲仔饭是公开攻略里很常见的选项。"
+          },
+          {
+            title: "佳佳甜品 / 云吞面",
+            tags: ["午餐后甜口", "佐敦顺路"],
+            image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80",
+            text: "午餐后想轻松收尾的话，糖水或云吞面都很适合接在油麻地警署后面。"
+          }
+        ]
+      }
     };
 
     const mapRegistry = {};
@@ -1450,6 +1743,37 @@
       }
     }
 
+    function renderFoodModule(foodKey) {
+      const payload = foodModules[foodKey];
+      if (!payload) return;
+
+      const module = document.querySelector(`[data-food-module="${payload.scope}"]`);
+      if (!module) return;
+
+      const intro = module.querySelector("[data-food-intro]");
+      const list = module.querySelector("[data-food-list]");
+      intro.textContent = payload.intro;
+      list.innerHTML = payload.items.map((item) => `
+        <article class="food-card">
+          <img src="${item.image}" alt="${item.title}">
+          <div class="food-copy">
+            <h5>${item.title}</h5>
+            <div class="food-badges">
+              ${item.tags.map((tag) => `<span>${tag}</span>`).join("")}
+            </div>
+            <p>${item.text}</p>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function activateSpotCard(card) {
+      const scope = card.closest("[data-food-scope]");
+      if (!scope) return;
+      scope.querySelectorAll(".spot-card").forEach((item) => item.classList.toggle("active", item === card));
+      renderFoodModule(card.dataset.foodTarget);
+    }
+
     document.querySelectorAll("[data-route-group='d3']").forEach((group) => {
       group.addEventListener("click", (event) => {
         const button = event.target.closest("button[data-route]");
@@ -1458,8 +1782,19 @@
       });
     });
 
+    document.querySelectorAll(".spot-card[data-food-target]").forEach((card) => {
+      card.addEventListener("click", () => activateSpotCard(card));
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activateSpotCard(card);
+        }
+      });
+    });
+
     window.addEventListener("load", () => {
       syncRoutePanels("classic");
+      ["d2-k11", "classic-tram", "street-ladies"].forEach(renderFoodModule);
       Object.values(mapRegistry).forEach((entry) => {
         entry.map.invalidateSize();
       });
