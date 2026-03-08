@@ -72,6 +72,70 @@
       padding: 26px 0 48px;
     }
 
+    .floating-nav {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      display: grid;
+      gap: 10px;
+      justify-items: end;
+    }
+
+    .nav-toggle,
+    .nav-links a {
+      border: 1px solid rgba(29, 35, 48, 0.1);
+      box-shadow: 0 18px 48px rgba(43, 34, 20, 0.14);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-toggle {
+      border-radius: 999px;
+      padding: 12px 16px;
+      background: rgba(255, 250, 242, 0.94);
+      color: var(--ink);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: grid;
+      gap: 10px;
+      width: min(240px, calc(100vw - 36px));
+      padding: 14px;
+      border-radius: 24px;
+      background: rgba(255, 250, 242, 0.94);
+      border: 1px solid rgba(29, 35, 48, 0.1);
+      box-shadow: 0 24px 60px rgba(43, 34, 20, 0.14);
+      transform-origin: bottom right;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .floating-nav[data-collapsed="true"] .nav-links {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px) scale(0.96);
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a span {
+      color: var(--subtle);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
     .hero,
     .section-card,
     .timeline-card,
@@ -718,6 +782,21 @@
         padding-top: 14px;
       }
 
+      .floating-nav {
+        right: 12px;
+        bottom: 12px;
+      }
+
+      .nav-toggle {
+        padding: 11px 14px;
+      }
+
+      .nav-links {
+        width: min(220px, calc(100vw - 24px));
+        padding: 12px;
+        border-radius: 20px;
+      }
+
       .hero,
       .section-card,
       .timeline-card,
@@ -776,8 +855,18 @@
   </style>
 </head>
 <body>
+  <nav class="floating-nav" data-collapsed="true" aria-label="页面导航">
+    <div class="nav-links" id="page-nav-links">
+      <a href="#overview">行程总览 <span>三天分工</span></a>
+      <a href="#days">每日时间轴 <span>D1 / D2 / D3</span></a>
+      <a href="#checklist">办卡与购机 <span>任务清单</span></a>
+      <a href="#routes">路线决策区 <span>地图与景点</span></a>
+      <a href="#top">回到顶部 <span>标题区域</span></a>
+    </div>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="page-nav-links">定位章节</button>
+  </nav>
   <div class="page-shell">
-    <header class="hero">
+    <header class="hero" id="top">
       <div class="hero-grid">
         <section>
           <span class="eyebrow">2026 广深港情侣旅行</span>
@@ -835,7 +924,7 @@
     </header>
 
     <main>
-      <section class="section-card">
+      <section class="section-card" id="overview">
         <div class="section-head">
           <div>
             <h2>行程总览</h2>
@@ -863,7 +952,7 @@
         </div>
       </section>
 
-      <section class="timeline-grid">
+      <section class="timeline-grid" id="days">
         <details class="timeline-card day-accordion">
           <summary class="timeline-top day-summary">
             <div class="title-wrap">
@@ -1249,7 +1338,7 @@
         </details>
       </section>
 
-      <section class="section-card">
+      <section class="section-card" id="checklist">
         <div class="section-head">
           <div>
             <h2>办卡与购机清单</h2>
@@ -1279,7 +1368,7 @@
         </div>
       </section>
 
-      <section class="section-card">
+      <section class="section-card" id="routes">
         <div class="section-head">
           <div>
             <h2>路线地图与景点预览</h2>
@@ -1805,6 +1894,24 @@
         syncRoutePanels(button.dataset.route);
       });
     });
+
+    const floatingNav = document.querySelector(".floating-nav");
+    const navToggle = document.querySelector(".nav-toggle");
+
+    if (floatingNav && navToggle) {
+      navToggle.addEventListener("click", () => {
+        const collapsed = floatingNav.dataset.collapsed !== "false";
+        floatingNav.dataset.collapsed = collapsed ? "false" : "true";
+        navToggle.setAttribute("aria-expanded", collapsed ? "true" : "false");
+      });
+
+      floatingNav.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          floatingNav.dataset.collapsed = "true";
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
 
     window.addEventListener("load", () => {
       syncRoutePanels("classic");
