@@ -373,6 +373,28 @@
       padding-top: 18px;
     }
 
+    .section-fold .section-head {
+      margin-bottom: 0;
+    }
+
+    .section-fold .section-head::after {
+      content: "+";
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(29, 35, 48, 0.08);
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .section-fold[open] .section-head::after {
+      content: "−";
+    }
+
     .section-head h2 {
       font-size: clamp(24px, 3vw, 36px);
       font-family: "Noto Serif SC", serif;
@@ -929,6 +951,20 @@
         padding-top: 14px;
       }
 
+      .section-fold .section-head {
+        display: grid;
+        grid-template-columns: 1fr 40px;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px;
+      }
+
+      .section-fold .section-head::after {
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+      }
+
       .section-head h2 {
         font-size: 26px;
       }
@@ -1235,7 +1271,7 @@
     <main>
       <details class="section-card fold-card section-fold" id="overview">
         <summary class="section-head">
-          <div>
+          <div class="title-wrap">
             <h2>行程总览</h2>
             <p>先看三天分工，再看每天的时间轴。</p>
           </div>
